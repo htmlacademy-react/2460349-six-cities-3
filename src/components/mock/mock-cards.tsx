@@ -1,5 +1,8 @@
 import apartment01 from './../../../markup/img/apartment-01.jpg';
 
+export const mockAmenities: string[] = ['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge'];
+export const mockImages: string[] = [apartment01, apartment01, apartment01, apartment01, apartment01, apartment01];
+
 export type CardProps = {
   id?: string;
   title: string;

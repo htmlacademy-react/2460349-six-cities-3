@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { mockCards } from './components/place-card/mock-cards';
+import { mockCards } from './components/mock/mock-cards';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

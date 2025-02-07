@@ -1,4 +1,4 @@
-import { CardProps } from './mock-cards';
+import { CardProps } from '../mock/mock-cards';
 
 function PlaceCard({title, type, price, isFavorite, isPremium, rating, previewImage} : CardProps) : JSX.Element {
   return (

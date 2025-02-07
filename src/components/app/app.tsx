@@ -1,9 +1,17 @@
 import MainScreen from '../../pages/main-screen/main-screen';
+// import OfferScreen from '../../pages/offer-screen/offer-screen';
+// import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
+// import LoginScreen from '../../pages/login-screen/login-screen';
 import { MainScreenProps } from '../../pages/main-screen/main-screen';
 
-function App({placesCount}: MainScreenProps): JSX.Element {
+type AppScreenProps = MainScreenProps;
+
+function App({placesCount}: AppScreenProps): JSX.Element {
   return (
-    <MainScreen placesCount={placesCount}/>
+    <MainScreen placesCount={placesCount} />
+    // <OfferScreen />
+    // <FavoritesScreen />
+    // <LoginScreen />
   );
 }
 

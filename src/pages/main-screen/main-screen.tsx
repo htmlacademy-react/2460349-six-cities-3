@@ -1,7 +1,7 @@
 import Header from '../../components/header/header';
 import Tabs from './components/tabs';
 import PlacesSorting from './components/places-sorting';
-import { mockCards } from '../../components/place-card/mock-cards';
+import { mockCards } from '../../components/mock/mock-cards';
 import PlaceCard from '../../components/place-card/place-card';
 
 export type MainScreenProps = {
