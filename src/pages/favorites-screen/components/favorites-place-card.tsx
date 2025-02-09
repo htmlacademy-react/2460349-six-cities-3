@@ -1,4 +1,4 @@
-function FavoritesPlaceCard(): JSX.Element {
+function FavoritesPlaceCard() {
   return (
     <article className="favorites__card place-card">
       <div className="place-card__mark">

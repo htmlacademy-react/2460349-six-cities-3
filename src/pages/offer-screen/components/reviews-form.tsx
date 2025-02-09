@@ -1,9 +1,11 @@
-function ReviewsForm(): JSX.Element {
+import { NUMBER_OF_STARS } from '../../../const';
+
+function ReviewsForm() {
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {[5, 4, 3, 2, 1].map((star) => (
+        {NUMBER_OF_STARS.map((star) => (
           <div key={star}>
             <input
               className="form__rating-input visually-hidden"

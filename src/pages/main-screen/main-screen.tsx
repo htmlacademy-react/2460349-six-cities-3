@@ -8,7 +8,7 @@ export type MainScreenProps = {
   placesCount: number;
 }
 
-function MainScreen({placesCount}: MainScreenProps): JSX.Element {
+function MainScreen({placesCount}: MainScreenProps) {
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -24,16 +24,7 @@ function MainScreen({placesCount}: MainScreenProps): JSX.Element {
               <PlacesSorting/>
               <div className="cities__places-list places__list tabs__content">
                 {mockCards.map((mockCard)=> (
-                  <PlaceCard
-                    key={mockCard.id}
-                    title={mockCard.title}
-                    type={mockCard.type}
-                    price={mockCard.price}
-                    isFavorite={mockCard.isFavorite}
-                    isPremium={mockCard.isPremium}
-                    rating={mockCard.rating}
-                    previewImage={mockCard.previewImage}
-                  />
+                  <PlaceCard key={mockCard.id} card={mockCard} />
                 ))}
               </div>
             </section>

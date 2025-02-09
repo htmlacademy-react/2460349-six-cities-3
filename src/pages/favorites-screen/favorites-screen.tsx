@@ -1,7 +1,7 @@
 import Header from '../../components/header/header';
 import FavoritesPlaceCard from './components/favorites-place-card';
 
-function FavoritesScreen(): JSX.Element {
+function FavoritesScreen() {
   return (
     <div className="page">
       <Header />

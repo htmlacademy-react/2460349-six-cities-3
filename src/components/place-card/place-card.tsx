@@ -1,6 +1,11 @@
-import { CardProps } from '../mock/mock-cards';
+import { CardDto } from '../mock/mock-cards';
 
-function PlaceCard({title, type, price, isFavorite, isPremium, rating, previewImage} : CardProps) : JSX.Element {
+interface CardProps {
+  card: CardDto;
+}
+
+function PlaceCard({card} : CardProps) {
+  const {title, type, price, isFavorite, isPremium, rating, previewImage} = card;
   return (
     <article className="cities__card place-card">
       {isPremium && (

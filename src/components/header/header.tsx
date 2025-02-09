@@ -1,8 +1,8 @@
-type HeaderProps = {
+interface HeaderProps {
   isLoginPage?: boolean;
-};
+}
 
-function Header({ isLoginPage = false }: HeaderProps): JSX.Element {
+function Header({ isLoginPage = false }: HeaderProps) {
   return (
     <header className="header">
       <div className="container">
