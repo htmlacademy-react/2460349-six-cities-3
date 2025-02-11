@@ -1,4 +1,5 @@
 import { CITIES } from '../../../const';
+import { Link } from 'react-router-dom';
 
 function Tabs() {
   return (
@@ -7,9 +8,9 @@ function Tabs() {
         <ul className="locations__list tabs__list">
           {CITIES.map((city)=>(
             <li className="locations__item" key={city}>
-              <a className="locations__item-link tabs__item" href="#">
+              <Link className="locations__item-link tabs__item" to="#">
                 <span>{city}</span>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

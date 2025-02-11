@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import OfferImage from './components/offer-image';
 import { mockAmenities, mockImages, mockCards } from '../../components/mock/mock-cards';
@@ -10,6 +11,9 @@ import PlaceCard from '../../components/place-card/place-card';
 function OfferScreen() {
   return (
     <div className="page">
+      <Helmet>
+        <title>6 Cities Offer</title>
+      </Helmet>
       <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
@@ -68,7 +72,7 @@ function OfferScreen() {
                 <ul className="reviews__list">
                   <ReviewsItem />
                 </ul>
-                <ReviewsForm/>
+                <ReviewsForm />
               </section>
             </div>
           </div>

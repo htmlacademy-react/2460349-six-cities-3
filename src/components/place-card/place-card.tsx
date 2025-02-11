@@ -1,11 +1,12 @@
 import { CardDto } from '../mock/mock-cards';
+import { Link } from 'react-router-dom';
 
 interface CardProps {
   card: CardDto;
 }
 
-function PlaceCard({card} : CardProps) {
-  const {title, type, price, isFavorite, isPremium, rating, previewImage} = card;
+function PlaceCard({ card }: CardProps) {
+  const { title, type, price, isFavorite, isPremium, rating, previewImage } = card;
   return (
     <article className="cities__card place-card">
       {isPremium && (
@@ -14,9 +15,9 @@ function PlaceCard({card} : CardProps) {
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to="/offer">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -24,7 +25,7 @@ function PlaceCard({card} : CardProps) {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`}type="button">
+          <button className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -33,12 +34,12 @@ function PlaceCard({card} : CardProps) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${rating * 20}% `}}></span>
+            <span style={{ width: `${rating * 20}% ` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to="/offer">{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
