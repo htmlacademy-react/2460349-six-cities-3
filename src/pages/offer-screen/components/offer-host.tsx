@@ -1,4 +1,4 @@
-function OfferHost(): JSX.Element {
+function OfferHost() {
   return (
     <div className="offer__host">
       <h2 className="offer__host-title">Meet the host</h2>

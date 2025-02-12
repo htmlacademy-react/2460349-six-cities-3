@@ -1,4 +1,4 @@
-function ReviewsItem(): JSX.Element {
+function ReviewsItem() {
   return (
     <li className="reviews__item">
       <div className="reviews__user user">

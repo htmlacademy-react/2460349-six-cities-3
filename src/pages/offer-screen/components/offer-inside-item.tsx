@@ -1,4 +1,4 @@
-function OfferInsideItem({amenity}: {amenity: string}): JSX.Element {
+function OfferInsideItem({amenity}: {amenity: string}) {
   return (
     <li className="offer__inside-item">
       {amenity}

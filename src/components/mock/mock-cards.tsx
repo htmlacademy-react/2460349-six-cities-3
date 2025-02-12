@@ -3,7 +3,7 @@ import apartment01 from './../../../markup/img/apartment-01.jpg';
 export const mockAmenities: string[] = ['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge'];
 export const mockImages: string[] = [apartment01, apartment01, apartment01, apartment01, apartment01, apartment01];
 
-export type CardProps = {
+export interface CardDto {
   id?: string;
   title: string;
   type: string;
@@ -27,7 +27,7 @@ export type CardProps = {
   previewImage: string;
 }
 
-export const mockCards: CardProps[] = [
+export const mockCards: CardDto[] = [
   {
     id: '1a9e6bed-2c8e-456e-bee4-72a72f2c4546',
     title: 'Wood and stone place',

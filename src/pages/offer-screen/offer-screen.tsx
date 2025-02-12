@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import OfferImage from './components/offer-image';
 import { mockAmenities, mockImages, mockCards } from '../../components/mock/mock-cards';
@@ -7,9 +8,12 @@ import ReviewsItem from './components/reviews-item';
 import ReviewsForm from './components/reviews-form';
 import PlaceCard from '../../components/place-card/place-card';
 
-function OfferScreen(): JSX.Element {
+function OfferScreen() {
   return (
     <div className="page">
+      <Helmet>
+        <title>6 Cities Offer</title>
+      </Helmet>
       <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
@@ -68,7 +72,7 @@ function OfferScreen(): JSX.Element {
                 <ul className="reviews__list">
                   <ReviewsItem />
                 </ul>
-                <ReviewsForm/>
+                <ReviewsForm />
               </section>
             </div>
           </div>
@@ -79,16 +83,7 @@ function OfferScreen(): JSX.Element {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               {mockCards.slice(0, 3).map((mockCard) => (
-                <PlaceCard
-                  key={mockCard.id}
-                  title={mockCard.title}
-                  type={mockCard.type}
-                  price={mockCard.price}
-                  isFavorite={mockCard.isFavorite}
-                  isPremium={mockCard.isPremium}
-                  rating={mockCard.rating}
-                  previewImage={mockCard.previewImage}
-                />
+                <PlaceCard key={mockCard.id} card={mockCard} />
               ))}
             </div>
           </section>
