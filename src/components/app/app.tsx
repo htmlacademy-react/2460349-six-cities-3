@@ -24,7 +24,7 @@ function App({ placesCount }: AppScreenProps) {
             path={AppRoute.Favorites}
             element={
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.NoAuth}
+                authorizationStatus={AuthorizationStatus.Auth}
               >
                 <FavoritesScreen />
               </PrivateRoute>

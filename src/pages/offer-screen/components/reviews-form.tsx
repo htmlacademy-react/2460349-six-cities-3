@@ -1,11 +1,11 @@
-import { NUMBER_OF_STARS } from '../../../const';
+import { STAR_RATINGS } from '../../../const';
 
 function ReviewsForm() {
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {NUMBER_OF_STARS.map((star) => (
+        {STAR_RATINGS.map((star) => (
           <div key={star}>
             <input
               className="form__rating-input visually-hidden"
