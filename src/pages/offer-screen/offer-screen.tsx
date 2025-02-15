@@ -1,20 +1,19 @@
-import { Helmet } from 'react-helmet-async';
-import Header from '../../components/header/header';
 import OfferImage from './components/offer-image';
+import { Helmet } from 'react-helmet-async';
 import { mockAmenities, mockImages, mockCards } from '../../components/mock/mock-cards';
 import OfferInsideItem from './components/offer-inside-item';
 import OfferHost from './components/offer-host';
 import ReviewsItem from './components/reviews-item';
 import ReviewsForm from './components/reviews-form';
 import PlaceCard from '../../components/place-card/place-card';
+import { NEARBY_OFFERS_COUNT } from '../../const';
 
 function OfferScreen() {
   return (
-    <div className="page">
+    <>
       <Helmet>
         <title>6 Cities Offer</title>
       </Helmet>
-      <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
@@ -82,14 +81,15 @@ function OfferScreen() {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {mockCards.slice(0, 3).map((mockCard) => (
+              {mockCards.slice(0, NEARBY_OFFERS_COUNT).map((mockCard) => (
                 <PlaceCard key={mockCard.id} card={mockCard} />
               ))}
             </div>
           </section>
         </div>
       </main>
-    </div>
+    </>
+
   );
 }
 

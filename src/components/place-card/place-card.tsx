@@ -17,7 +17,7 @@ function PlaceCard({ card }: CardProps) {
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to="/offer">
+        <Link to="/offer/1">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </Link>
       </div>
@@ -48,7 +48,7 @@ function PlaceCard({ card }: CardProps) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to="/offer">{title}</Link>
+          <Link to="/offer/1">{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

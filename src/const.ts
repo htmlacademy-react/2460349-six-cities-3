@@ -4,11 +4,13 @@ export const STAR_RATINGS = [5, 4, 3, 2, 1] as const;
 
 export const RATING_MULTIPLIER = 100 / STAR_RATINGS.length;
 
+export const NEARBY_OFFERS_COUNT = 3;
+
 export enum AppRoute {
-  Main = '/',
+  Root = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer/:id'
+  Offer = '/offer/:id',
 }
 
 export enum AuthorizationStatus {
