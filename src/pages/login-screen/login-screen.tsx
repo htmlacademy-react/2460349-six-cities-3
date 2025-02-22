@@ -1,13 +1,11 @@
 import { Helmet } from 'react-helmet-async';
-import Header from '../../components/header/header';
 
 function LoginScreen() {
   return (
-    <div className="page page--gray page--login">
+    <>
       <Helmet>
         <title>6 Cities Login</title>
       </Helmet>
-      <Header isLoginPage />
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
@@ -33,8 +31,7 @@ function LoginScreen() {
           </section>
         </div>
       </main>
-    </div>
-
+    </>
   );
 }
 

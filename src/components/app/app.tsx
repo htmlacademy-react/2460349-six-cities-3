@@ -8,38 +8,48 @@ import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
+import Layout from '../layout/layout';
+import { OfferDetailsDto } from '../mock/mock-offers-details';
+import { CommentDto } from '../mock/mock-comments';
 
-type AppScreenProps = ComponentProps<typeof MainScreen>
 
-function App({ placesCount }: AppScreenProps) {
+type AppScreenProps = ComponentProps<typeof MainScreen>&{
+  offersDetails: OfferDetailsDto[];
+  comments: CommentDto[];
+}
+
+function App({ offersCount, offers, offersDetails, comments }: AppScreenProps) {
+  const authorizationStatus = AuthorizationStatus.Auth;
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
+          <Route path={AppRoute.Root} element={<Layout authorizationStatus={authorizationStatus} />}>
+            <Route
+              index
+              element={<MainScreen offersCount={offersCount} offers={offers}/>}
+            />
+            <Route
+              path={AppRoute.Favorites}
+              element={
+                <PrivateRoute
+                  authorizationStatus={authorizationStatus}
+                >
+                  <FavoritesScreen offers={offers}/>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={AppRoute.Offer}
+              element={<OfferScreen offersDetails={offersDetails} comments={comments} authorizationStatus={authorizationStatus} offers={offers}/>}
+            />
+            <Route
+              path={AppRoute.Login}
+              element={<LoginScreen />}
+            />
+          </Route>
           <Route
-            path={AppRoute.Main}
-            element={<MainScreen placesCount={placesCount} />}
-          />
-          <Route
-            path={AppRoute.Favorites}
-            element={
-              <PrivateRoute
-                authorizationStatus={AuthorizationStatus.NoAuth}
-              >
-                <FavoritesScreen />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={AppRoute.Offer}
-            element={<OfferScreen />}
-          />
-          <Route
-            path={AppRoute.Login}
-            element={<LoginScreen />}
-          />
-          <Route
-            path={'*'}
+            path={AppRoute.NotFound}
             element={<NotFoundScreen />}
           />
         </Routes>
