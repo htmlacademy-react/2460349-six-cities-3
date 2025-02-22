@@ -1,11 +1,11 @@
-interface AmenityProps {
-  amenity: string;
+interface Props {
+  good: string;
 }
 
-function OfferInsideItem({amenity}: AmenityProps) {
+function OfferInsideItem({good}: Props) {
   return (
     <li className="offer__inside-item">
-      {amenity}
+      {good}
     </li>
   );
 }

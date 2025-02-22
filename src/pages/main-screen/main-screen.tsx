@@ -1,14 +1,15 @@
 import Tabs from './components/tabs';
 import { Helmet } from 'react-helmet-async';
 import PlacesSorting from './components/places-sorting';
-import { mockCards } from '../../components/mock/mock-cards';
-import PlaceCard from '../../components/place-card/place-card';
+import { OfferDto } from '../../components/mock/mock-offers';
+import OffersList from '../../components/offers-list/offers-list';
 
 export interface MainScreenProps {
-  placesCount: number;
+  offersCount: number;
+  offers: OfferDto[];
 }
 
-function MainScreen({ placesCount }: MainScreenProps) {
+function MainScreen({ offersCount, offers }: MainScreenProps) {
   return (
     <>
       <Helmet>
@@ -21,12 +22,10 @@ function MainScreen({ placesCount }: MainScreenProps) {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placesCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
               <PlacesSorting />
               <div className="cities__places-list places__list tabs__content">
-                {mockCards.map((mockCard) => (
-                  <PlaceCard key={mockCard.id} card={mockCard} />
-                ))}
+                <OffersList offers={offers} />
               </div>
             </section>
             <div className="cities__right-section">

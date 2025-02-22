@@ -1,14 +1,38 @@
 import OfferImage from './components/offer-image';
 import { Helmet } from 'react-helmet-async';
-import { mockAmenities, mockImages, mockCards } from '../../components/mock/mock-cards';
+import { mockOffers, OfferDto } from '../../components/mock/mock-offers';
+import OffersList from '../../components/offers-list/offers-list';
 import OfferInsideItem from './components/offer-inside-item';
 import OfferHost from './components/offer-host';
 import ReviewsItem from './components/reviews-item';
 import ReviewsForm from './components/reviews-form';
-import PlaceCard from '../../components/place-card/place-card';
-import { NEARBY_OFFERS_COUNT } from '../../const';
+import { AuthorizationStatus, NEARBY_OFFERS_COUNT, RATING_MULTIPLIER } from '../../const';
+import { OfferDetailsDto } from '../../components/mock/mock-offers-details';
+import { useParams } from 'react-router-dom';
+import clsx from 'clsx';
+import { CommentDto } from '../../components/mock/mock-comments';
 
-function OfferScreen() {
+
+interface Props {
+  offersDetails: OfferDetailsDto[];
+  comments: CommentDto[];
+  authorizationStatus: AuthorizationStatus;
+  offers: OfferDto[];
+}
+
+function OfferScreen({ offersDetails, comments, authorizationStatus, offers }: Props) {
+  // const navigate = useNavigate();
+  const { id } = useParams();
+  const offer = offersDetails.find((item) => item.id === id);
+  const offerComments = comments.filter((item) => item.id === id) || [];
+  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+
+  if (!offer) {
+    return <h1>Not Found Offer</h1>;
+    // return navigate(AppRoute.NotFound);
+  }
+
+  const { title, type, price, isFavorite, isPremium, rating, description, bedrooms, goods, host, images, maxAdults } = offer;
   return (
     <>
       <Helmet>
@@ -18,19 +42,28 @@ function OfferScreen() {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {mockImages.map((img) => <OfferImage key={img} mockImage={img} />)}
+              {images.map((img) => <OfferImage key={img} mockImage={img} />)}
             </div>
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              <div className="offer__mark">
-                <span>Premium</span>
-              </div>
+              {isPremium && (
+                <div className="offer__mark">
+                  <span>Premium</span>
+                </div>
+              )}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
-                  Beautiful &amp; luxurious studio at great location
+                  {title}
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
+                <button
+                  className={clsx(
+                    'offer__bookmark-button',
+                    'button',
+                    { 'offer__bookmark-button--active': isFavorite }
+                  )}
+                  type="button"
+                >
                   <svg className="offer__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
                   </svg>
@@ -39,39 +72,39 @@ function OfferScreen() {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: '80%' }} />
+                  <span style={{ width: `${rating * RATING_MULTIPLIER}% ` }} />
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">4.8</span>
+                <span className="offer__rating-value rating__value">{rating}</span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  Apartment
+                  {type.charAt(0).toUpperCase() + type.slice(1)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  3 Bedrooms
+                  {bedrooms} Bedrooms
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max 4 adults
+                  Max {maxAdults} adults
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">€120</b>
+                <b className="offer__price-value">&euro;{price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {mockAmenities.map((amenity) => <OfferInsideItem key={amenity} amenity={amenity} />)}
+                  {goods.map((good) => <OfferInsideItem key={good} good={good} />)}
                 </ul>
               </div>
-              <OfferHost />
+              <OfferHost description={description} host={host} />
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">Reviews · <span className="reviews__amount">1</span></h2>
+                <h2 className="reviews__title">Reviews · <span className="reviews__amount">{offerComments.length}</span></h2>
                 <ul className="reviews__list">
-                  <ReviewsItem />
+                  {offerComments.map((offerComment) => <ReviewsItem key={offerComment.id} offerComment={offerComment} />)}
                 </ul>
-                <ReviewsForm />
+                {isAuth && <ReviewsForm />}
               </section>
             </div>
           </div>
@@ -81,9 +114,7 @@ function OfferScreen() {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {mockCards.slice(0, NEARBY_OFFERS_COUNT).map((mockCard) => (
-                <PlaceCard key={mockCard.id} card={mockCard} />
-              ))}
+              <OffersList offers={offers.slice(0, NEARBY_OFFERS_COUNT)} />
             </div>
           </section>
         </div>

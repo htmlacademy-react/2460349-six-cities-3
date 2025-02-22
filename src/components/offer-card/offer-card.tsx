@@ -1,23 +1,29 @@
 import clsx from 'clsx';
-import { CardDto } from '../mock/mock-cards';
+import { OfferDto } from '../mock/mock-offers';
 import { Link } from 'react-router-dom';
 import { RATING_MULTIPLIER } from '../../const';
 
-interface CardProps {
-  card: CardDto;
+interface Props {
+  offer: OfferDto;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
 }
 
-function PlaceCard({ card }: CardProps) {
-  const { title, type, price, isFavorite, isPremium, rating, previewImage } = card;
+function OfferCard({ offer, onMouseEnter, onMouseLeave }: Props) {
+  const { id, title, type, price, isFavorite, isPremium, rating, previewImage } = offer;
   return (
-    <article className="cities__card place-card">
+    <article
+      className="cities__card place-card"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to="/offer/1">
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </Link>
       </div>
@@ -48,7 +54,7 @@ function PlaceCard({ card }: CardProps) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to="/offer/1">{title}</Link>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -56,4 +62,4 @@ function PlaceCard({ card }: CardProps) {
   );
 }
 
-export default PlaceCard;
+export default OfferCard;
