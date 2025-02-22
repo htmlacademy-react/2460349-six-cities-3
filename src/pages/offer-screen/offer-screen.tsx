@@ -1,6 +1,6 @@
 import OfferImage from './components/offer-image';
 import { Helmet } from 'react-helmet-async';
-import { mockOffers, OfferDto } from '../../components/mock/mock-offers';
+import { OfferDto } from '../../components/mock/mock-offers';
 import OffersList from '../../components/offers-list/offers-list';
 import OfferInsideItem from './components/offer-inside-item';
 import OfferHost from './components/offer-host';

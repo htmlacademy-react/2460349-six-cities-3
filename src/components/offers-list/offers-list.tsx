@@ -8,6 +8,7 @@ interface Props {
 
 function OffersList({ offers }: Props) {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+  // eslint-disable-next-line no-console
   console.log(activeOfferId);
   return (
     <>
