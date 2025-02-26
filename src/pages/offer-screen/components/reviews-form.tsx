@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import clsx from 'clsx';
 import { STAR_RATINGS } from '../../../const';
+import styles from './reviews-form.module.css';
 
 function ReviewsForm() {
   const [review, setReview] = useState({
@@ -31,7 +33,12 @@ function ReviewsForm() {
               onChange={handleRatingChange}
             />
             <label htmlFor={`${star}-stars`} className="reviews__rating-label form__rating-label" >
-              <svg className="form__star-image" width={37} height={33} style={{ fill: review.rating >= star ? '#ff9000' : '#ccc' }}>
+              <svg className={clsx(
+                styles['form__star-image'],
+                review.rating >= star && styles.filled
+              )}
+              width={37} height={33}
+              >
                 <use xlinkHref="#icon-star" />
               </svg>
             </label>

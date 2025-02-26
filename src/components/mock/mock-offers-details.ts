@@ -1,42 +1,10 @@
 import apartment01 from './../../../markup/img/apartment-01.jpg';
 import avatarangelina from './../../../markup/img/avatar-angelina.jpg';
+import { OfferDetailsDto } from '../../types/types';
 
 export const mockImages: string[] = [apartment01, apartment01, apartment01, apartment01, apartment01, apartment01];
 
 export const mockAmenities: string[] = ['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge'];
-
-export interface OfferDetailsDto {
-  id: string;
-  title: string;
-  type: string;
-  price: number;
-  city: {
-    name: string;
-    // location: {
-    //   latitude: number;
-    //   longitude: number;
-    //   zoom: number;
-    // };
-  };
-  // location: {
-  //   latitude: number;
-  //   longitude: number;
-  //   zoom: number;
-  // };
-  isFavorite: boolean;
-  isPremium: boolean;
-  rating: number;
-  description: string;
-  bedrooms: number;
-  goods: string[];
-  host: {
-    name: string;
-    avatarUrl: string;
-    isPro: boolean;
-  };
-  images: string[];
-  maxAdults: number;
-}
 
 export const mockOffersDetails: OfferDetailsDto[] = [
   {
@@ -168,3 +136,4 @@ export const mockOffersDetails: OfferDetailsDto[] = [
     maxAdults: 8
   },
 ];
+
