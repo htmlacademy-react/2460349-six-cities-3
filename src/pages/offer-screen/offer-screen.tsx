@@ -1,17 +1,16 @@
 import OfferImage from './components/offer-image';
 import { Helmet } from 'react-helmet-async';
-import { OfferDto } from '../../components/mock/mock-offers';
 import OffersList from '../../components/offers-list/offers-list';
 import OfferInsideItem from './components/offer-inside-item';
 import OfferHost from './components/offer-host';
 import ReviewsItem from './components/reviews-item';
 import ReviewsForm from './components/reviews-form';
 import { AuthorizationStatus, NEARBY_OFFERS_COUNT, RATING_MULTIPLIER } from '../../const';
-import { OfferDetailsDto } from '../../components/mock/mock-offers-details';
 import { useParams } from 'react-router-dom';
 import clsx from 'clsx';
-import { CommentDto } from '../../components/mock/mock-comments';
-
+import { CommentDto, OfferDetailsDto, OfferDto } from '../../types/types';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { useState } from 'react';
 
 interface Props {
   offersDetails: OfferDetailsDto[];
@@ -21,15 +20,16 @@ interface Props {
 }
 
 function OfferScreen({ offersDetails, comments, authorizationStatus, offers }: Props) {
-  // const navigate = useNavigate();
   const { id } = useParams();
   const offer = offersDetails.find((item) => item.id === id);
   const offerComments = comments.filter((item) => item.id === id) || [];
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_activeOfferId, setActiveOfferId] = useState<string | null>(null);
+
   if (!offer) {
-    return <h1>Not Found Offer</h1>;
-    // return navigate(AppRoute.NotFound);
+    return <NotFoundScreen />;
   }
 
   const { title, type, price, isFavorite, isPremium, rating, description, bedrooms, goods, host, images, maxAdults } = offer;
@@ -42,7 +42,7 @@ function OfferScreen({ offersDetails, comments, authorizationStatus, offers }: P
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.map((img) => <OfferImage key={img} mockImage={img} />)}
+              {images.map((img) => <OfferImage key={crypto.randomUUID()} image={img} />)}
             </div>
           </div>
           <div className="offer__container container">
@@ -114,7 +114,7 @@ function OfferScreen({ offersDetails, comments, authorizationStatus, offers }: P
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={offers.slice(0, NEARBY_OFFERS_COUNT)} />
+              <OffersList offers={offers.slice(0, NEARBY_OFFERS_COUNT)} setActiveOfferId={setActiveOfferId} />
             </div>
           </section>
         </div>

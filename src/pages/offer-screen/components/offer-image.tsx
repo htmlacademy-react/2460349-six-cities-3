@@ -1,11 +1,11 @@
 interface ImageProps {
-  mockImage: string;
+  image: string;
 }
 
-function OfferImage({mockImage}: ImageProps) {
+function OfferImage({image}: ImageProps) {
   return(
     <div className = "offer__image-wrapper" >
-      <img className="offer__image" src={mockImage} alt="Photo studio" />
+      <img className="offer__image" src={image} alt="Photo studio" />
     </div>
   );
 }

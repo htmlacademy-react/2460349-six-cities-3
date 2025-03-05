@@ -1,16 +1,5 @@
 import avatarangelina from './../../../markup/img/avatar-angelina.jpg';
-
-export interface CommentDto {
-  id: string;
-  date: string;
-  user: {
-    name: string;
-    avatarUrl: string;
-    isPro: boolean;
-  };
-  comment: string;
-  rating: number;
-}
+import { CommentDto } from '../../types/types';
 
 export const mockComments: CommentDto[] = [
   {

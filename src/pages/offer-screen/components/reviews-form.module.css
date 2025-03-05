@@ -1,0 +1,8 @@
+.form__star-image {
+  fill: #ccc;
+}
+
+.form__star-image.filled {
+  fill: #ff9000;
+}
+

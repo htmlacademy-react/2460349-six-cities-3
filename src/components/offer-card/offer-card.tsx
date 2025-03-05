@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { OfferDto } from '../mock/mock-offers';
+import { OfferDto } from '../../types/types';
 import { Link } from 'react-router-dom';
 import { RATING_MULTIPLIER } from '../../const';
 

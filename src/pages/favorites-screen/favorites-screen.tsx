@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { OfferDto } from '../../components/mock/mock-offers';
+import { OfferDto } from '../../types/types';
 import FavoritesOffer from './components/favorites-offer';
 
 interface Props {

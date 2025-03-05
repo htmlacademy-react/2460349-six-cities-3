@@ -1,28 +1,5 @@
+import { OfferDto } from '../../types/types';
 import apartment01 from './../../../markup/img/apartment-01.jpg';
-
-export interface OfferDto {
-  id?: string;
-  title: string;
-  type: string;
-  price: number;
-  city: {
-  name: string;
-  // location: {
-  // latitude: number;
-  // longitude: number;
-  // zoom: number;
-  // };
-  // };
-  // location: {
-  // latitude: number;
-  // longitude: number;
-  // zoom: number;
-  };
-  isFavorite: boolean;
-  isPremium: boolean;
-  rating: number;
-  previewImage: string;
-}
 
 export const mockOffers: OfferDto[] = [
   {
@@ -32,17 +9,17 @@ export const mockOffers: OfferDto[] = [
     price: 365,
     previewImage: apartment01,
     city: {
-      name: 'Paris',
-    //   location: {
-    //     latitude: 48.85661,
-    //     longitude: 2.351499,
-    //     zoom: 13,
-    //   },
-    // },
-    // location: {
-    //   latitude: 48.868610000000004,
-    //   longitude: 2.342499,
-    //   zoom: 16,
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8
+      },
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 16,
     },
     isFavorite: true,
     isPremium: true,
@@ -55,17 +32,17 @@ export const mockOffers: OfferDto[] = [
     price: 272,
     previewImage: apartment01,
     city: {
-      name: 'Paris',
-    //   location: {
-    //     latitude: 48.85661,
-    //     longitude: 2.351499,
-    //     zoom: 13,
-    //   },
-    // },
-    // location: {
-    //   latitude: 48.858610000000006,
-    //   longitude: 2.330499,
-    //   zoom: 16,
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8
+      },
+    },
+    location: {
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 16,
     },
     isFavorite: false,
     isPremium: false,
@@ -78,17 +55,17 @@ export const mockOffers: OfferDto[] = [
     price: 146,
     previewImage: apartment01,
     city: {
-      name: 'Paris',
-    //   location: {
-    //     latitude: 48.85661,
-    //     longitude: 2.351499,
-    //     zoom: 13,
-    //   },
-    // },
-    // location: {
-    //   latitude: 48.834610000000005,
-    //   longitude: 2.335499,
-    //   zoom: 16,
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8
+      },
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 16,
     },
     isFavorite: false,
     isPremium: false,
@@ -102,19 +79,20 @@ export const mockOffers: OfferDto[] = [
     previewImage: apartment01,
     city: {
       name: 'Amsterdam',
-    //   location: {
-    //     latitude: 48.85661,
-    //     longitude: 2.351499,
-    //     zoom: 13,
-    //   },
-    // },
-    // location: {
-    //   latitude: 48.87561,
-    //   longitude: 2.375499,
-    //   zoom: 16,
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8
+      },
+    },
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 16,
     },
     isFavorite: false,
     isPremium: true,
     rating: 3.4,
   },
 ];
+
