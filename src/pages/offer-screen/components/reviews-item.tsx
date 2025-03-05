@@ -1,4 +1,4 @@
-import { CommentDto } from '../../../components/mock/mock-comments';
+import { CommentDto } from '../../../types/types';
 import { RATING_MULTIPLIER } from '../../../const';
 import { formatterDate } from '../../../utils';
 

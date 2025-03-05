@@ -8,8 +8,9 @@ import ReviewsForm from './components/reviews-form';
 import { AuthorizationStatus, NEARBY_OFFERS_COUNT, RATING_MULTIPLIER } from '../../const';
 import { useParams } from 'react-router-dom';
 import clsx from 'clsx';
-import { CommentDto, OfferDetailsDto, OfferDto} from '../../types/types';
+import { CommentDto, OfferDetailsDto, OfferDto } from '../../types/types';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { useState } from 'react';
 
 interface Props {
   offersDetails: OfferDetailsDto[];
@@ -23,6 +24,9 @@ function OfferScreen({ offersDetails, comments, authorizationStatus, offers }: P
   const offer = offersDetails.find((item) => item.id === id);
   const offerComments = comments.filter((item) => item.id === id) || [];
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
   if (!offer) {
     return <NotFoundScreen />;
@@ -38,7 +42,7 @@ function OfferScreen({ offersDetails, comments, authorizationStatus, offers }: P
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.map((img) => <OfferImage key={img} image={img} />)}
+              {images.map((img) => <OfferImage key={crypto.randomUUID()} image={img} />)}
             </div>
           </div>
           <div className="offer__container container">
@@ -110,7 +114,7 @@ function OfferScreen({ offersDetails, comments, authorizationStatus, offers }: P
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={offers.slice(0, NEARBY_OFFERS_COUNT)} />
+              <OffersList offers={offers.slice(0, NEARBY_OFFERS_COUNT)} setActiveOfferId={setActiveOfferId} />
             </div>
           </section>
         </div>

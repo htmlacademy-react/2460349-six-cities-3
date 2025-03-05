@@ -1,15 +1,12 @@
 import OfferCard from '../offer-card/offer-card';
-import { OfferDto } from '../mock/mock-offers';
-import { useState } from 'react';
+import { OfferDto } from '../../types/types';
 
 interface Props {
   offers: OfferDto[];
+  setActiveOfferId: (id: string | null) => void;
 }
 
-function OffersList({ offers }: Props) {
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
-  // eslint-disable-next-line no-console
-  console.log(activeOfferId);
+function OffersList({ offers, setActiveOfferId }: Props) {
   return (
     <>
       {offers.map((offer) => (
@@ -18,7 +15,6 @@ function OffersList({ offers }: Props) {
           offer={offer}
           onMouseEnter={() => setActiveOfferId(offer.id ?? null)}
           onMouseLeave={() => setActiveOfferId(null)}
-
         />
       ))}
     </>

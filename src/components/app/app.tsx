@@ -9,8 +9,8 @@ import LoginScreen from '../../pages/login-screen/login-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import { OfferDetailsDto } from '../mock/mock-offers-details';
-import { CommentDto } from '../mock/mock-comments';
+import { OfferDetailsDto } from '../../types/types';
+import { CommentDto } from '../../types/types';
 
 
 type AppScreenProps = ComponentProps<typeof MainScreen>&{

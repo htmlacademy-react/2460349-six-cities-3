@@ -1,8 +1,10 @@
 import Tabs from './components/tabs';
 import { Helmet } from 'react-helmet-async';
 import PlacesSorting from './components/places-sorting';
-import { OfferDto } from '../../components/mock/mock-offers';
+import { OfferDto } from '../../types/types';
 import OffersList from '../../components/offers-list/offers-list';
+import Map from '../../components/map/map';
+import { useState } from 'react';
 
 export interface MainScreenProps {
   offersCount: number;
@@ -10,6 +12,9 @@ export interface MainScreenProps {
 }
 
 function MainScreen({ offersCount, offers }: MainScreenProps) {
+  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+  const currentCity = offers[0]?.city;
+
   return (
     <>
       <Helmet>
@@ -25,11 +30,11 @@ function MainScreen({ offersCount, offers }: MainScreenProps) {
               <b className="places__found">{offersCount} places to stay in Amsterdam</b>
               <PlacesSorting />
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers} />
+                <OffersList offers={offers} setActiveOfferId={setActiveOfferId}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              {currentCity && < Map city={currentCity} offers={offers} activeOfferId={activeOfferId}/>}
             </div>
           </div>
         </div>

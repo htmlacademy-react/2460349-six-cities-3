@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { OfferDto } from '../../../components/mock/mock-offers';
+import { OfferDto } from '../../../types/types';
 import { RATING_MULTIPLIER } from '../../../const';
 
 interface Props {
