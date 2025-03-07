@@ -14,17 +14,17 @@ export const mockOffersDetails: OfferDetailsDto[] = [
     price: 365,
     city: {
       name: 'Paris',
-      // location: {
-      //   latitude: 52.35514938496378,
-      //   longitude: 4.673877537499948,
-      //   zoom: 8
-      // }
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8
+      }
     },
-    // location: {
-    //   latitude: 52.35514938496378,
-    //   longitude: 4.673877537499948,
-    //   zoom: 8
-    // },
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
     isFavorite: true,
     isPremium: true,
     rating: 3.8,
@@ -46,17 +46,17 @@ export const mockOffersDetails: OfferDetailsDto[] = [
     price: 272,
     city: {
       name: 'Paris',
-      // location: {
-      //   latitude: 52.35514938496378,
-      //   longitude: 4.673877537499948,
-      //   zoom: 8
-      // }
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8
+      }
     },
-    // location: {
-    //   latitude: 52.35514938496378,
-    //   longitude: 4.673877537499948,
-    //   zoom: 8
-    // },
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
     isFavorite: false,
     isPremium: false,
     rating: 2.5,
@@ -78,17 +78,17 @@ export const mockOffersDetails: OfferDetailsDto[] = [
     price: 146,
     city: {
       name: 'Paris',
-      // location: {
-      //   latitude: 52.35514938496378,
-      //   longitude: 4.673877537499948,
-      //   zoom: 8
-      // }
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8
+      }
     },
-    // location: {
-    //   latitude: 52.35514938496378,
-    //   longitude: 4.673877537499948,
-    //   zoom: 8
-    // },
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
     isFavorite: false,
     isPremium: false,
     rating: 4.1,
@@ -110,17 +110,17 @@ export const mockOffersDetails: OfferDetailsDto[] = [
     price: 796,
     city: {
       name: 'Amsterdam',
-      // location: {
-      //   latitude: 52.35514938496378,
-      //   longitude: 4.673877537499948,
-      //   zoom: 8
-      // }
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8
+      }
     },
-    // location: {
-    //   latitude: 52.35514938496378,
-    //   longitude: 4.673877537499948,
-    //   zoom: 8
-    // },
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
     isFavorite: false,
     isPremium: true,
     rating: 3.4,

@@ -4,11 +4,14 @@ import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import { OfferDto } from '../../types/types';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
+import clsx from 'clsx';
 
 interface Props {
   city: OfferDto['city'];
   offers: OfferDto[];
-  activeOfferId: string | null;
+  activeOfferId?: string | null;
+  selectedOfferId?: string;
+  pageMain: boolean;
 }
 
 const defaultCustomIcon = leaflet.icon({
@@ -19,7 +22,7 @@ const currentCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_CURRENT,
 });
 
-function Map({ city, offers, activeOfferId }: Props) {
+function Map({ city, offers, activeOfferId, selectedOfferId, pageMain }: Props) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -31,10 +34,10 @@ function Map({ city, offers, activeOfferId }: Props) {
           lat: offer.location.latitude,
           lng: offer.location.longitude
         });
-
+        const isHighlighted = offer.id === selectedOfferId || offer.id === activeOfferId;
         marker
           .setIcon(
-            activeOfferId === offer.id ? currentCustomIcon : defaultCustomIcon
+            isHighlighted ? currentCustomIcon : defaultCustomIcon
           )
           .addTo(markerLayer);
       });
@@ -43,13 +46,17 @@ function Map({ city, offers, activeOfferId }: Props) {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, activeOfferId]);
+  }, [map, offers, activeOfferId, selectedOfferId]);
 
   return (
-    <section className="cities__map map"
-      ref={mapRef}
+    <section className={clsx(
+      'map',
+      { 'offer__map': !pageMain },
+      { 'cities__map': pageMain }
+    )}
+    ref = { mapRef }
     >
-    </section>
+    </section >
   );
 }
 

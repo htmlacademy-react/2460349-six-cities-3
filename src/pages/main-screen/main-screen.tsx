@@ -34,7 +34,7 @@ function MainScreen({ offersCount, offers }: MainScreenProps) {
               </div>
             </section>
             <div className="cities__right-section">
-              {currentCity && < Map city={currentCity} offers={offers} activeOfferId={activeOfferId}/>}
+              {currentCity && < Map city={currentCity} offers={offers} activeOfferId={activeOfferId} pageMain/>}
             </div>
           </div>
         </div>
