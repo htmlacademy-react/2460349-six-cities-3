@@ -9,8 +9,7 @@ import clsx from 'clsx';
 interface Props {
   city: OfferDto['city'];
   offers: OfferDto[];
-  activeOfferId?: string | null;
-  selectedOfferId?: string;
+  activeOfferId: string | null;
   pageMain: boolean;
 }
 
@@ -22,7 +21,7 @@ const currentCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_CURRENT,
 });
 
-function Map({ city, offers, activeOfferId, selectedOfferId, pageMain }: Props) {
+function Map({ city, offers, activeOfferId, pageMain }: Props) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -34,10 +33,10 @@ function Map({ city, offers, activeOfferId, selectedOfferId, pageMain }: Props) 
           lat: offer.location.latitude,
           lng: offer.location.longitude
         });
-        const isHighlighted = offer.id === selectedOfferId || offer.id === activeOfferId;
+
         marker
           .setIcon(
-            isHighlighted ? currentCustomIcon : defaultCustomIcon
+            offer.id === activeOfferId ? currentCustomIcon : defaultCustomIcon
           )
           .addTo(markerLayer);
       });
@@ -46,7 +45,7 @@ function Map({ city, offers, activeOfferId, selectedOfferId, pageMain }: Props) 
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, activeOfferId, selectedOfferId]);
+  }, [map, offers, activeOfferId]);
 
   return (
     <section className={clsx(

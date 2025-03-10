@@ -105,7 +105,7 @@ function OfferScreen({ offersDetails, comments, authorizationStatus, offers }: P
               </section>
             </div>
           </div>
-          < Map city={offer.city} offers={offers} selectedOfferId={offer.id} pageMain={false}/>
+          < Map city={offer.city} offers={offers} activeOfferId={offer.id} pageMain={false}/>
         </section>
         <div className="container">
           <section className="near-places places">
