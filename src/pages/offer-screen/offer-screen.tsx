@@ -3,14 +3,14 @@ import { Helmet } from 'react-helmet-async';
 import OffersList from '../../components/offers-list/offers-list';
 import OfferInsideItem from './components/offer-inside-item';
 import OfferHost from './components/offer-host';
-import ReviewsItem from './components/reviews-item';
+import ReviewsList from './components/reviews-list';
 import ReviewsForm from './components/reviews-form';
 import { AuthorizationStatus, NEARBY_OFFERS_COUNT, RATING_MULTIPLIER } from '../../const';
 import { useParams } from 'react-router-dom';
 import clsx from 'clsx';
 import { CommentDto, OfferDetailsDto, OfferDto } from '../../types/types';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { useState } from 'react';
+import Map from '../../components/map/map';
 
 interface Props {
   offersDetails: OfferDetailsDto[];
@@ -24,9 +24,6 @@ function OfferScreen({ offersDetails, comments, authorizationStatus, offers }: P
   const offer = offersDetails.find((item) => item.id === id);
   const offerComments = comments.filter((item) => item.id === id) || [];
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
   if (!offer) {
     return <NotFoundScreen />;
@@ -102,19 +99,19 @@ function OfferScreen({ offersDetails, comments, authorizationStatus, offers }: P
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">Reviews · <span className="reviews__amount">{offerComments.length}</span></h2>
                 <ul className="reviews__list">
-                  {offerComments.map((offerComment) => <ReviewsItem key={offerComment.id} offerComment={offerComment} />)}
+                  <ReviewsList offerComments={offerComments}/>
                 </ul>
                 {isAuth && <ReviewsForm />}
               </section>
             </div>
           </div>
-          <section className="offer__map map" />
+          < Map city={offer.city} offers={offers} activeOfferId={offer.id} pageMain={false}/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={offers.slice(0, NEARBY_OFFERS_COUNT)} setActiveOfferId={setActiveOfferId} />
+              <OffersList offers={offers.slice(0, NEARBY_OFFERS_COUNT)} />
             </div>
           </section>
         </div>

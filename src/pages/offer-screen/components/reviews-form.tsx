@@ -34,7 +34,7 @@ function ReviewsForm() {
             />
             <label htmlFor={`${star}-stars`} className="reviews__rating-label form__rating-label" >
               <svg className={clsx(
-                styles['form__star-image'],
+                styles.formStarImage,
                 review.rating >= star && styles.filled
               )}
               width={37} height={33}

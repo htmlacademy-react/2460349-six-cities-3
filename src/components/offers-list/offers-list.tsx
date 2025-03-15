@@ -3,7 +3,7 @@ import { OfferDto } from '../../types/types';
 
 interface Props {
   offers: OfferDto[];
-  setActiveOfferId: (id: string | null) => void;
+  setActiveOfferId?: (id: string | null) => void;
 }
 
 function OffersList({ offers, setActiveOfferId }: Props) {
@@ -13,8 +13,8 @@ function OffersList({ offers, setActiveOfferId }: Props) {
         <OfferCard
           key={offer.id}
           offer={offer}
-          onMouseEnter={() => setActiveOfferId(offer.id ?? null)}
-          onMouseLeave={() => setActiveOfferId(null)}
+          onMouseEnter={() => setActiveOfferId?.(offer.id ?? null)}
+          onMouseLeave={() => setActiveOfferId?.(null)}
         />
       ))}
     </>
