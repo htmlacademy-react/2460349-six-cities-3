@@ -8,9 +8,11 @@ import { selectCity, selectFilteredOffers } from '../../store/selectors';
 import { setOffers } from '../../store/action';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { mockOffers } from '../../components/mock/mock-offers';
+import { Sorting } from '../../const';
 
 function MainScreen() {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+  const [sortType, setSortType] = useState<Sorting>(Sorting.Default);
   const currentCity = useAppSelector(selectCity);
   const dispatch = useAppDispatch();
   const offersByCity = useAppSelector(selectFilteredOffers);
@@ -32,9 +34,9 @@ function MainScreen() {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersByCity.length} places to stay in {currentCity?.name}</b>
-              <PlacesSorting />
+              <PlacesSorting sortType={sortType} setSortType={setSortType}/>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offersByCity} setActiveOfferId={setActiveOfferId} />
+                <OffersList offers={offersByCity} setActiveOfferId={setActiveOfferId} sortType={sortType}/>
               </div>
             </section>
             <div className="cities__right-section">
