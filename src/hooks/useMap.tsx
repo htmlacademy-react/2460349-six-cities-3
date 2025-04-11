@@ -33,6 +33,15 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: OfferDto['ci
 
   }, [mapRef, city]);
 
+  useEffect(() => {
+    if (map) {
+      map.setView({
+        lat: city.location.latitude,
+        lng: city.location.longitude
+      }, city.location.zoom);
+    }
+  }, [city, map]);
+
   return map;
 }
 

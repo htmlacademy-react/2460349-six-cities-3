@@ -3,23 +3,16 @@ import { Helmet } from 'react-helmet-async';
 import PlacesSorting from './components/places-sorting';
 import OffersList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { selectCity, selectFilteredOffers } from '../../store/selectors';
-import { setOffers } from '../../store/action';
-import { useAppDispatch, useAppSelector } from '../../store';
-import { mockOffers } from '../../components/mock/mock-offers';
+import { useAppSelector } from '../../store';
 import { Sorting } from '../../const';
 
 function MainScreen() {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const [sortType, setSortType] = useState<Sorting>(Sorting.Default);
   const currentCity = useAppSelector(selectCity);
-  const dispatch = useAppDispatch();
   const offersByCity = useAppSelector(selectFilteredOffers);
-
-  useEffect(() => {
-    dispatch(setOffers(mockOffers));
-  }, [dispatch]);
 
   return (
     <>
