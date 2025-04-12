@@ -10,6 +10,8 @@ import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
 import { OfferDetailsDto, OfferDto } from '../../types/types';
 import { CommentDto } from '../../types/types';
+import { useAppSelector } from '../../store';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 
 type AppScreenProps = {
@@ -19,7 +21,15 @@ type AppScreenProps = {
 }
 
 function App({ offers, offersDetails, comments }: AppScreenProps) {
-  const authorizationStatus = AuthorizationStatus.Auth;
+  const authorizationStatus = useAppSelector((state)=> state.authorizationStatus);
+  const isDataLoading = useAppSelector((state)=> state.isDataLoading);
+
+  if(authorizationStatus === AuthorizationStatus.Unknown || isDataLoading){
+    return (
+      <LoadingScreen/>
+    );
+  }
+
   return (
     <HelmetProvider>
       <BrowserRouter>

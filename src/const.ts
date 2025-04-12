@@ -10,6 +10,8 @@ export const URL_MARKER_DEFAULT = 'public/img/pin.svg';
 
 export const URL_MARKER_CURRENT = 'public/img/pin-active.svg';
 
+export const TIMEOUT_SHOW_ERROR = 2000;
+
 export enum AppRoute {
   Root = '/',
   Login = '/login',
@@ -29,4 +31,18 @@ export enum Sorting {
   LowPrice = 'Price: low to high',
   HighPrice = 'Price: high to low',
   TopRated = 'Top rated first'
+}
+
+export enum APIRoute {
+  Offers = '/offers',
+  Offer = '/offers/:id',
+  Nearby = '/offers/:id/nearby',
+
+  Favorite = '/favorite',
+  ChangeFavorite = '/favorite/:id/:status',
+
+  Comments = '/comments/:id',
+
+  Login = '/login',
+  Logout = '/logout',
 }
