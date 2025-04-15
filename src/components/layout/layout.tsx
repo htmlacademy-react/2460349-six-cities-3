@@ -2,13 +2,8 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import clsx from 'clsx';
-import { AuthorizationStatus } from '../../const';
 
-interface LayoutProps {
-  authorizationStatus: AuthorizationStatus;
-}
-
-function Layout({ authorizationStatus }: LayoutProps) {
+function Layout() {
   const location = useLocation();
 
   const isLoginPage = location.pathname === '/login';
@@ -21,7 +16,7 @@ function Layout({ authorizationStatus }: LayoutProps) {
 
   return (
     <div className={pageClass}>
-      <Header isLoginPage={isLoginPage} authorizationStatus={authorizationStatus}/>
+      <Header isLoginPage={isLoginPage} />
       <Outlet />
       {isFavoritesPage && <Footer />}
     </div>

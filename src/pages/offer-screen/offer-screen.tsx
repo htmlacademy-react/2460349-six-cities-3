@@ -11,18 +11,19 @@ import clsx from 'clsx';
 import { CommentDto, OfferDetailsDto, OfferDto } from '../../types/types';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Map from '../../components/map/map';
+import { useAppSelector } from '../../store';
 
 interface Props {
   offersDetails: OfferDetailsDto[];
   comments: CommentDto[];
-  authorizationStatus: AuthorizationStatus;
   offers: OfferDto[];
 }
 
-function OfferScreen({ offersDetails, comments, authorizationStatus, offers }: Props) {
+function OfferScreen({ offersDetails, comments, offers }: Props) {
   const { id } = useParams();
   const offer = offersDetails.find((item) => item.id === id);
   const offerComments = comments.filter((item) => item.id === id) || [];
+  const authorizationStatus = useAppSelector((state)=> state.authorizationStatus);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
   if (!offer) {

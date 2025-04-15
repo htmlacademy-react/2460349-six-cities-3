@@ -1,12 +1,17 @@
 import { Link } from 'react-router-dom';
 import { AuthorizationStatus } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { selectUserEmail } from '../../store/selectors';
+import { logoutAction } from '../../store/api-actions';
 
-interface HeaderProps {
+interface Props {
   isLoginPage?: boolean;
-  authorizationStatus: AuthorizationStatus;
 }
 
-function Header({ isLoginPage = false, authorizationStatus }: HeaderProps) {
+function Header({ isLoginPage = false, }: Props) {
+  const dispatch = useAppDispatch();
+  const email = useAppSelector(selectUserEmail);
+  const authorizationStatus = useAppSelector((state)=> state.authorizationStatus);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
   return (
     <header className="header">
@@ -26,7 +31,7 @@ function Header({ isLoginPage = false, authorizationStatus }: HeaderProps) {
                     {isAuth
                       ?
                       <>
-                        <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                        <span className="header__user-name user__name">{email}</span>
                         <span className="header__favorite-count">3</span>
                       </>
                       :
@@ -35,7 +40,14 @@ function Header({ isLoginPage = false, authorizationStatus }: HeaderProps) {
                 </li>
                 {isAuth &&
                   <li className="header__nav-item">
-                    <Link className="header__nav-link" to="/">
+                    <Link
+                      className="header__nav-link"
+                      to="/"
+                      onClick={(evt) => {
+                        evt.preventDefault();
+                        dispatch(logoutAction());
+                      }}
+                    >
                       <span className="header__signout">Sign out</span>
                     </Link>
                   </li>}
