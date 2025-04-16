@@ -12,3 +12,9 @@ export const selectFilteredOffers = createSelector(
   [selectCityName, selectAllOffers],
   (city, offers) => offers.filter((offer) => offer.city.name === city)
 );
+
+export const selectUserEmail = (state: RootState) => state.user?.email;
+
+export const selectAuthorizationStatus = (state: RootState) => state.authorizationStatus;
+
+export const selectIsLoading = (state: RootState) => state.isDataLoading;

@@ -1,13 +1,14 @@
 import { AuthorizationStatus } from '../const';
 import { store } from '../store';
 import { OfferDto } from './types';
+import { UserData } from './user-data';
 
 export interface State {
   city: string;
   offers: OfferDto[];
   authorizationStatus: AuthorizationStatus;
-  error: string | null;
   isDataLoading: boolean;
+  user: UserData | null;
 }
 
 export type AppDispatch = typeof store.dispatch;

@@ -1,5 +1,5 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
 import MainScreen from '../../pages/main-screen/main-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
@@ -12,6 +12,8 @@ import { OfferDetailsDto, OfferDto } from '../../types/types';
 import { CommentDto } from '../../types/types';
 import { useAppSelector } from '../../store';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import { useInitAuth } from '../../hooks/useInitAuth';
+import { selectIsLoading } from '../../store/selectors';
 
 
 type AppScreenProps = {
@@ -21,10 +23,10 @@ type AppScreenProps = {
 }
 
 function App({ offers, offersDetails, comments }: AppScreenProps) {
-  const authorizationStatus = useAppSelector((state)=> state.authorizationStatus);
-  const isDataLoading = useAppSelector((state)=> state.isDataLoading);
+  useInitAuth();
+  const isDataLoading = useAppSelector(selectIsLoading);
 
-  if(authorizationStatus === AuthorizationStatus.Unknown || isDataLoading){
+  if(isDataLoading){
     return (
       <LoadingScreen/>
     );
@@ -34,7 +36,7 @@ function App({ offers, offersDetails, comments }: AppScreenProps) {
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route path={AppRoute.Root} element={<Layout authorizationStatus={authorizationStatus} />}>
+          <Route path={AppRoute.Root} element={<Layout />}>
             <Route
               index
               element={<MainScreen />}
@@ -42,16 +44,14 @@ function App({ offers, offersDetails, comments }: AppScreenProps) {
             <Route
               path={AppRoute.Favorites}
               element={
-                <PrivateRoute
-                  authorizationStatus={authorizationStatus}
-                >
+                <PrivateRoute>
                   <FavoritesScreen offers={offers}/>
                 </PrivateRoute>
               }
             />
             <Route
               path={AppRoute.Offer}
-              element={<OfferScreen offersDetails={offersDetails} comments={comments} authorizationStatus={authorizationStatus} offers={offers}/>}
+              element={<OfferScreen offersDetails={offersDetails} comments={comments} offers={offers}/>}
             />
             <Route
               path={AppRoute.Login}
