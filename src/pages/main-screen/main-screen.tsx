@@ -4,15 +4,15 @@ import PlacesSorting from './components/places-sorting';
 import OffersList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
 import { useState } from 'react';
-import { selectCity, selectFilteredOffers } from '../../store/selectors';
+import { selectCurrentCity, selectOffersByCity } from '../../store/selectors';
 import { useAppSelector } from '../../store';
 import { Sorting } from '../../const';
 
 function MainScreen() {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const [sortType, setSortType] = useState<Sorting>(Sorting.Default);
-  const currentCity = useAppSelector(selectCity);
-  const offersByCity = useAppSelector(selectFilteredOffers);
+  const currentCity = useAppSelector(selectCurrentCity);
+  const offersByCity = useAppSelector(selectOffersByCity);
 
   return (
     <>

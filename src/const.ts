@@ -33,13 +33,11 @@ export enum Sorting {
 
 export enum APIRoute {
   Offers = '/offers',
-  Offer = '/offers/:id',
-  Nearby = '/offers/:id/nearby',
 
   Favorite = '/favorite',
   ChangeFavorite = '/favorite/:id/:status',
 
-  Comments = '/comments/:id',
+  Comments = '/comments',
 
   Login = '/login',
   Logout = '/logout',

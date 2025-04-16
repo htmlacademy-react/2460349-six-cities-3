@@ -8,23 +8,20 @@ import LoginScreen from '../../pages/login-screen/login-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import { OfferDetailsDto, OfferDto } from '../../types/types';
-import { CommentDto } from '../../types/types';
+import { OfferDto } from '../../types/types';
 import { useAppSelector } from '../../store';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { useInitAuth } from '../../hooks/useInitAuth';
-import { selectIsLoading } from '../../store/selectors';
+import { selectAppLoading } from '../../store/selectors';
 
 
 type AppScreenProps = {
   offers: OfferDto[];
-  offersDetails: OfferDetailsDto[];
-  comments: CommentDto[];
 }
 
-function App({ offers, offersDetails, comments }: AppScreenProps) {
+function App({ offers }: AppScreenProps) {
   useInitAuth();
-  const isDataLoading = useAppSelector(selectIsLoading);
+  const isDataLoading = useAppSelector(selectAppLoading);
 
   if(isDataLoading){
     return (
@@ -51,7 +48,7 @@ function App({ offers, offersDetails, comments }: AppScreenProps) {
             />
             <Route
               path={AppRoute.Offer}
-              element={<OfferScreen offersDetails={offersDetails} comments={comments} offers={offers}/>}
+              element={<OfferScreen />}
             />
             <Route
               path={AppRoute.Login}

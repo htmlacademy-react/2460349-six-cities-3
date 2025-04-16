@@ -1,15 +1,22 @@
 import { AuthorizationStatus } from '../const';
 import { store } from '../store';
-import { OfferDto } from './types';
+import { CommentDto, OfferDetailsDto, OfferDto } from './types';
 import { UserData } from './user-data';
 
-export interface State {
+export interface MainState {
   city: string;
   offers: OfferDto[];
   authorizationStatus: AuthorizationStatus;
   isDataLoading: boolean;
   user: UserData | null;
 }
+
+export interface OfferState {
+  currentOffer: OfferDetailsDto | null;
+  nearbyOffers: OfferDto[];
+  comments: CommentDto[];
+}
+
 
 export type AppDispatch = typeof store.dispatch;
 
