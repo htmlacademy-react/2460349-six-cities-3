@@ -2,12 +2,19 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import { STAR_RATINGS } from '../../../const';
 import styles from './reviews-form.module.css';
+import { useAppDispatch } from '../../../store';
+import { useParams } from 'react-router-dom';
+import { sendCommentAction } from '../../../store/api-actions';
+import { toast } from 'react-toastify';
 
 function ReviewsForm() {
+  const { id } = useParams();
   const [review, setReview] = useState({
     comment: '',
     rating: 0
   });
+  const [isSending, setIsSending] = useState(false);
+  const dispatch = useAppDispatch();
 
   const handleCommentChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     setReview((prev) => ({ ...prev, comment: evt.target.value }));
@@ -17,8 +24,38 @@ function ReviewsForm() {
     setReview((prev) => ({ ...prev, rating: Number(evt.target.value) }));
   };
 
+  const handleSubmit = async (evt: React.FormEvent) => {
+    evt.preventDefault();
+
+    if (!id) {
+      return;
+    }
+    setIsSending(true);
+    try {
+      await dispatch(sendCommentAction({
+        comment: review.comment,
+        rating: review.rating,
+        id,
+      })).unwrap();
+
+      setReview({ comment: '', rating: 0 });
+    } catch (error) {
+      toast.error('Failed to send comment. Try again later.');
+    } finally {
+      setIsSending(false);
+    }
+  };
+
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={(evt) => {
+        void handleSubmit(evt);
+      }}
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {STAR_RATINGS.map((star) => (
@@ -57,7 +94,7 @@ function ReviewsForm() {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={review.comment.length < 50 || review.comment.length > 300 || review.rating === 0}>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isSending || review.comment.length < 50 || review.comment.length > 300 || review.rating === 0}>
           Submit
         </button>
       </div>

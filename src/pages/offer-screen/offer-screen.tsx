@@ -8,27 +8,40 @@ import ReviewsForm from './components/reviews-form';
 import { AuthorizationStatus, NEARBY_OFFERS_COUNT, RATING_MULTIPLIER } from '../../const';
 import { useParams } from 'react-router-dom';
 import clsx from 'clsx';
-import { CommentDto, OfferDetailsDto, OfferDto } from '../../types/types';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Map from '../../components/map/map';
-import { useAppSelector } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { useEffect } from 'react';
+import { fetchOfferData } from '../../store/api-actions';
+import { selectAuthorizationStatus, selectComments, selectCurrentOffer, selectNearbyOffers } from '../../store/selectors';
+import { OfferDetailsDto, OfferDto } from '../../types/types';
 
-interface Props {
-  offersDetails: OfferDetailsDto[];
-  comments: CommentDto[];
-  offers: OfferDto[];
-}
-
-function OfferScreen({ offersDetails, comments, offers }: Props) {
+function OfferScreen() {
   const { id } = useParams();
-  const offer = offersDetails.find((item) => item.id === id);
-  const offerComments = comments.filter((item) => item.id === id) || [];
-  const authorizationStatus = useAppSelector((state)=> state.authorizationStatus);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+  const dispatch = useAppDispatch();
+
+  const offer = useAppSelector(selectCurrentOffer);
+  const comments = useAppSelector(selectComments);
+  const nearbyOffers = useAppSelector(selectNearbyOffers);
+
+  const limitedNearbyOffers = nearbyOffers.slice(0, NEARBY_OFFERS_COUNT);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOfferData(id));
+    }
+  }, [dispatch, id]);
 
   if (!offer) {
     return <NotFoundScreen />;
   }
+
+  const normalizeOffer = (offerr: OfferDetailsDto): OfferDto => ({
+    ...offerr,
+    previewImage: offer.images[0] || ''
+  });
 
   const { title, type, price, isFavorite, isPremium, rating, description, bedrooms, goods, host, images, maxAdults } = offer;
   return (
@@ -98,21 +111,21 @@ function OfferScreen({ offersDetails, comments, offers }: Props) {
               </div>
               <OfferHost description={description} host={host} />
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">Reviews · <span className="reviews__amount">{offerComments.length}</span></h2>
+                <h2 className="reviews__title">Reviews · <span className="reviews__amount">{comments.length}</span></h2>
                 <ul className="reviews__list">
-                  <ReviewsList offerComments={offerComments}/>
+                  <ReviewsList offerComments={comments} />
                 </ul>
                 {isAuth && <ReviewsForm />}
               </section>
             </div>
           </div>
-          < Map city={offer.city} offers={offers} activeOfferId={offer.id} pageMain={false}/>
+          < Map city={offer.city} offers={[...limitedNearbyOffers, normalizeOffer(offer)]} activeOfferId={offer.id} pageMain={false} />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={offers.slice(0, NEARBY_OFFERS_COUNT)} />
+              <OffersList offers={limitedNearbyOffers} />
             </div>
           </section>
         </div>

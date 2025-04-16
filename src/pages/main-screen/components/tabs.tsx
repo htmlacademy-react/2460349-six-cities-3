@@ -1,13 +1,13 @@
 import { CITIES } from '../../../const';
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../types/state';
 import { changeCity } from '../../../store/action';
 import { Link } from 'react-router-dom';
+import { selectCurrentCityName } from '../../../store/selectors';
 
 function Tabs() {
   const dispatch = useDispatch();
-  const currentCity = useSelector((state: RootState) => state.city);
+  const currentCity = useSelector(selectCurrentCityName);
 
   const handleCityClick = (city: string) => {
     dispatch(changeCity(city));
