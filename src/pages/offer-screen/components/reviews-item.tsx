@@ -9,7 +9,7 @@ interface Props {
 function ReviewsItem({ offerComment }: Props) {
   const {date, user, comment, rating} = offerComment;
   const {name, avatarUrl } = user;
-  // isPro приходит с сервера, но не понимаю как должно выглядеть у комментатора
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">

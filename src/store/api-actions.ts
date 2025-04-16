@@ -7,6 +7,7 @@ import { loadOffers, requireAuthorization, setComments, setCurrentOffer, setData
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
+import { CommentPostData } from '../types/comment-post-data';
 
 
 export const fetchUserData = createAsyncThunk<void, undefined, {
@@ -94,6 +95,21 @@ export const fetchOfferData = createAsyncThunk<void, string, {
 
     dispatch(setCurrentOffer(offer));
     dispatch(setNearbyOffers(nearby));
+    dispatch(setComments(comments));
+  }
+);
+
+export const sendCommentAction = createAsyncThunk<void, CommentPostData, {
+  dispatch: AppDispatch;
+  state: RootState;
+  extra: AxiosInstance;
+}>(
+  'comments/send',
+  async ({ id, comment, rating }, { dispatch, extra: api }) => {
+    await api.post<CommentDto[]>(`${APIRoute.Comments}/${id}`, { comment, rating });
+
+    const { data: comments } = await api.get<CommentDto[]>(`${APIRoute.Comments}/${id}`);
+
     dispatch(setComments(comments));
   }
 );
