@@ -1,6 +1,7 @@
 import OfferCard from '../offer-card/offer-card';
 import { OfferDto } from '../../types/types';
 import { Sorting } from '../../const';
+import { memo, useMemo } from 'react';
 
 interface Props {
   offers: OfferDto[];
@@ -8,7 +9,7 @@ interface Props {
   sortType?: Sorting;
 }
 
-function OffersList({ offers, setActiveOfferId, sortType = Sorting.Default}: Props) {
+function OffersListImpl({ offers, setActiveOfferId, sortType = Sorting.Default }: Props) {
 
   const sortingOffers = (list: OfferDto[], sort: Sorting): OfferDto[] => {
     if (sort === Sorting.Default) {
@@ -28,7 +29,7 @@ function OffersList({ offers, setActiveOfferId, sortType = Sorting.Default}: Pro
     }
   };
 
-  const sortedOffers = sortingOffers(offers, sortType);
+  const sortedOffers = useMemo<OfferDto[]>(() => sortingOffers(offers, sortType), [offers, sortType]);
 
   return (
     <>
@@ -44,6 +45,7 @@ function OffersList({ offers, setActiveOfferId, sortType = Sorting.Default}: Pro
   );
 }
 
+const OffersList = memo(OffersListImpl);
 
 export default OffersList;
 

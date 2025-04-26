@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { Sorting } from '../../../const';
 import clsx from 'clsx';
 
@@ -7,7 +7,7 @@ interface Props {
   setSortType: (sorting: Sorting) => void;
 }
 
-function PlacesSorting({ sortType, setSortType }: Props) {
+function PlacesSortingImpl({ sortType, setSortType }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -58,5 +58,7 @@ function PlacesSorting({ sortType, setSortType }: Props) {
     </form>
   );
 }
+
+const PlacesSorting = memo(PlacesSortingImpl);
 
 export default PlacesSorting;
