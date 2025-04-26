@@ -4,6 +4,7 @@ import { useAppDispatch } from '../../store';
 import { loginAction } from '../../store/api-actions';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { toast } from 'react-toastify';
 
 function LoginScreen() {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -12,15 +13,20 @@ function LoginScreen() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
-      dispatch(loginAction({
-        email: emailRef.current.value,
-        password: passwordRef.current.value
-      }));
-      navigate(AppRoute.Root);
+      try {
+        await dispatch(loginAction({
+          email: emailRef.current.value,
+          password: passwordRef.current.value
+        }));
+
+        navigate(AppRoute.Root);
+      } catch (error) {
+        toast.error('Incorrect login or password');
+      }
     }
   };
 
@@ -33,7 +39,7 @@ function LoginScreen() {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post" onSubmit={handleFormSubmit}>
+            <form className="login__form form" action="#" method="post" onSubmit={(evt) => void handleFormSubmit(evt)}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input ref={emailRef} className="login__input form__input" type="email" name="email" placeholder="Email" required />
