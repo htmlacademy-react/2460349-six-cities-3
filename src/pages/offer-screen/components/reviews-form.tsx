@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { STAR_RATINGS } from '../../../const';
 import styles from './reviews-form.module.css';
@@ -8,7 +8,7 @@ import { sendCommentAction } from '../../../store/api-actions';
 import { toast } from 'react-toastify';
 
 function ReviewsForm() {
-  const { id } = useParams();
+  const { id: offerId } = useParams();
   const [review, setReview] = useState({
     comment: '',
     rating: 0
@@ -20,14 +20,14 @@ function ReviewsForm() {
     setReview((prev) => ({ ...prev, comment: evt.target.value }));
   };
 
-  const handleRatingChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRatingChange = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
     setReview((prev) => ({ ...prev, rating: Number(evt.target.value) }));
-  };
+  }, []);
 
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
 
-    if (!id) {
+    if (!offerId) {
       return;
     }
     setIsSending(true);
@@ -35,7 +35,7 @@ function ReviewsForm() {
       await dispatch(sendCommentAction({
         comment: review.comment,
         rating: review.rating,
-        id,
+        id: offerId,
       })).unwrap();
 
       setReview({ comment: '', rating: 0 });
@@ -45,6 +45,34 @@ function ReviewsForm() {
       setIsSending(false);
     }
   };
+
+  const ratingStars = useMemo(() => (
+    STAR_RATINGS.map((star) => (
+      <div key={star}>
+        <input
+          className="form__rating-input visually-hidden"
+          name="rating"
+          value={star}
+          id={`${star}-stars`}
+          type="radio"
+          checked={review.rating === star}
+          onChange={handleRatingChange}
+        />
+        <label htmlFor={`${star}-stars`} className="reviews__rating-label form__rating-label">
+          <svg
+            className={clsx(
+              styles.formStarImage,
+              review.rating >= star && styles.filled
+            )}
+            width={37}
+            height={33}
+          >
+            <use xlinkHref="#icon-star" />
+          </svg>
+        </label>
+      </div>
+    ))
+  ), [review.rating, handleRatingChange]);
 
 
   return (
@@ -58,29 +86,7 @@ function ReviewsForm() {
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {STAR_RATINGS.map((star) => (
-          <div key={star}>
-            <input
-              className="form__rating-input visually-hidden"
-              name="rating"
-              value={star}
-              id={`${star}-stars`}
-              type="radio"
-              checked={review.rating === star}
-              onChange={handleRatingChange}
-            />
-            <label htmlFor={`${star}-stars`} className="reviews__rating-label form__rating-label" >
-              <svg className={clsx(
-                styles.formStarImage,
-                review.rating >= star && styles.filled
-              )}
-              width={37} height={33}
-              >
-                <use xlinkHref="#icon-star" />
-              </svg>
-            </label>
-          </div>
-        ))}
+        {ratingStars}
       </div>
       <textarea
         className="reviews__textarea form__textarea"

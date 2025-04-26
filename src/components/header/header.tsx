@@ -3,16 +3,18 @@ import { AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { selectAuthorizationStatus, selectUserEmail } from '../../store/selectors';
 import { logoutAction } from '../../store/api-actions';
+import { memo } from 'react';
 
 interface Props {
   isLoginPage?: boolean;
 }
 
-function Header({ isLoginPage = false, }: Props) {
+function HeaderImpl({ isLoginPage = false, }: Props) {
   const dispatch = useAppDispatch();
   const email = useAppSelector(selectUserEmail);
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+
   return (
     <header className="header">
       <div className="container">
@@ -60,5 +62,7 @@ function Header({ isLoginPage = false, }: Props) {
     </header>
   );
 }
+
+const Header = memo(HeaderImpl);
 
 export default Header;

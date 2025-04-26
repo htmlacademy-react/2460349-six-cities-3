@@ -11,10 +11,12 @@ export const useInitAuth = () => {
   useEffect(() => {
     const token = getToken();
 
-    if (token) {
-      dispatch(fetchUserData());
-    } else {
+    if (!token) {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+      return;
     }
+
+    dispatch(fetchUserData());
+
   }, [dispatch]);
 };

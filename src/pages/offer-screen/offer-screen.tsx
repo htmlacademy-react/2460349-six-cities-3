@@ -1,4 +1,3 @@
-import OfferImage from './components/offer-image';
 import { Helmet } from 'react-helmet-async';
 import OffersList from '../../components/offers-list/offers-list';
 import OfferInsideItem from './components/offer-inside-item';
@@ -15,6 +14,7 @@ import { useEffect } from 'react';
 import { fetchOfferData } from '../../store/api-actions';
 import { selectAuthorizationStatus, selectComments, selectCurrentOffer, selectNearbyOffers } from '../../store/selectors';
 import { OfferDetailsDto, OfferDto } from '../../types/types';
+import OffersImageList from './components/offers-image-list';
 
 function OfferScreen() {
   const { id } = useParams();
@@ -28,6 +28,11 @@ function OfferScreen() {
 
   const limitedNearbyOffers = nearbyOffers.slice(0, NEARBY_OFFERS_COUNT);
 
+  const adaptOfferDetailsToOffer = (offerDetails: OfferDetailsDto): OfferDto => ({
+    ...offerDetails,
+    previewImage: ''
+  });
+
   useEffect(() => {
     if (id) {
       dispatch(fetchOfferData(id));
@@ -37,11 +42,6 @@ function OfferScreen() {
   if (!offer) {
     return <NotFoundScreen />;
   }
-
-  const normalizeOffer = (offerr: OfferDetailsDto): OfferDto => ({
-    ...offerr,
-    previewImage: offer.images[0] || ''
-  });
 
   const { title, type, price, isFavorite, isPremium, rating, description, bedrooms, goods, host, images, maxAdults } = offer;
   return (
@@ -53,7 +53,7 @@ function OfferScreen() {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.map((img) => <OfferImage key={crypto.randomUUID()} image={img} />)}
+              <OffersImageList images={images} />
             </div>
           </div>
           <div className="offer__container container">
@@ -119,7 +119,7 @@ function OfferScreen() {
               </section>
             </div>
           </div>
-          < Map city={offer.city} offers={[...limitedNearbyOffers, normalizeOffer(offer)]} activeOfferId={offer.id} pageMain={false} />
+          < Map city={offer.city} offers={[...limitedNearbyOffers, adaptOfferDetailsToOffer(offer)]} activeOfferId={offer.id} pageMain={false} />
         </section>
         <div className="container">
           <section className="near-places places">

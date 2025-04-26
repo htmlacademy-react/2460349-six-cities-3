@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { OfferDto } from '../../types/types';
 import { Link } from 'react-router-dom';
 import { RATING_MULTIPLIER } from '../../const';
+import { memo } from 'react';
 
 interface Props {
   offer: OfferDto;
@@ -9,8 +10,9 @@ interface Props {
   onMouseLeave: () => void;
 }
 
-function OfferCard({ offer, onMouseEnter, onMouseLeave }: Props) {
+function OfferCardImpl({ offer, onMouseEnter, onMouseLeave }: Props) {
   const { id, title, type, price, isFavorite, isPremium, rating, previewImage } = offer;
+
   return (
     <article
       className="cities__card place-card"
@@ -61,5 +63,7 @@ function OfferCard({ offer, onMouseEnter, onMouseLeave }: Props) {
     </article >
   );
 }
+
+const OfferCard = memo(OfferCardImpl);
 
 export default OfferCard;
