@@ -12,9 +12,10 @@ import Map from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { useEffect } from 'react';
 import { fetchOfferData } from '../../store/api-actions';
-import { selectAuthorizationStatus, selectComments, selectCurrentOffer, selectNearbyOffers } from '../../store/selectors';
+import { selectAuthorizationStatus, selectComments, selectCurrentOffer, selectNearbyOffers, selectOfferLoading } from '../../store/selectors';
 import { OfferDetailsDto, OfferDto } from '../../types/types';
 import OffersImageList from './components/offers-image-list';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 function OfferScreen() {
   const { id } = useParams();
@@ -25,6 +26,7 @@ function OfferScreen() {
   const offer = useAppSelector(selectCurrentOffer);
   const comments = useAppSelector(selectComments);
   const nearbyOffers = useAppSelector(selectNearbyOffers);
+  const isOfferDataLoading = useAppSelector(selectOfferLoading);
 
   const limitedNearbyOffers = nearbyOffers.slice(0, NEARBY_OFFERS_COUNT);
 
@@ -38,6 +40,10 @@ function OfferScreen() {
       dispatch(fetchOfferData(id));
     }
   }, [dispatch, id]);
+
+  if (isOfferDataLoading) {
+    return <LoadingScreen />;
+  }
 
   if (!offer) {
     return <NotFoundScreen />;

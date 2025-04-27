@@ -15,6 +15,7 @@ export interface OfferState {
   currentOffer: OfferDetailsDto | null;
   nearbyOffers: OfferDto[];
   comments: CommentDto[];
+  isDataLoading: boolean;
 }
 
 

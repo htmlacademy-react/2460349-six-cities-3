@@ -3,7 +3,7 @@ import { AppDispatch, RootState } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { CommentDto, OfferDetailsDto, OfferDto } from '../types/types';
 import { APIRoute, AuthorizationStatus } from '../const';
-import { loadOffers, requireAuthorization, setComments, setCurrentOffer, setDataLoadingStatus, setNearbyOffers, setUserData } from './action';
+import { loadOffers, requireAuthorization, setComments, setCurrentOffer, setDataLoadingStatus, setNearbyOffers, setOfferDataLoadingStatus, setUserData } from './action';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
@@ -89,13 +89,21 @@ export const fetchOfferData = createAsyncThunk<void, string, {
 }>(
   'offer/fetchOfferData',
   async (id, { dispatch, extra: api }) => {
-    const { data: offer } = await api.get<OfferDetailsDto>(`${APIRoute.Offers}/${id}`);
-    const { data: nearby } = await api.get<OfferDto[]>(`${APIRoute.Offers}/${id}/nearby`);
-    const { data: comments } = await api.get<CommentDto[]>(`${APIRoute.Comments}/${id}`);
+    try {
+      dispatch(setOfferDataLoadingStatus(true));
+      const { data: offer } = await api.get<OfferDetailsDto>(`${APIRoute.Offers}/${id}`);
+      const { data: nearby } = await api.get<OfferDto[]>(`${APIRoute.Offers}/${id}/nearby`);
+      const { data: comments } = await api.get<CommentDto[]>(`${APIRoute.Comments}/${id}`);
 
-    dispatch(setCurrentOffer(offer));
-    dispatch(setNearbyOffers(nearby));
-    dispatch(setComments(comments));
+      dispatch(setCurrentOffer(offer));
+      dispatch(setNearbyOffers(nearby));
+      dispatch(setComments(comments));
+    } catch (error) {
+      dispatch(setCurrentOffer(null));
+    } finally {
+      dispatch(setOfferDataLoadingStatus(false));
+    }
+
   }
 );
 

@@ -10,7 +10,7 @@ export const requireAuthorization = createAction<AuthorizationStatus>('user/requ
 export const setDataLoadingStatus = createAction<boolean>('data/setDataLoadingStatus');
 export const setUserData = createAction<UserData>('data/userData');
 
-export const setCurrentOffer = createAction<OfferDetailsDto>('data/currentOffer');
+export const setCurrentOffer = createAction<OfferDetailsDto | null>('data/currentOffer');
 export const setNearbyOffers = createAction<OfferDto[]>('data/nearbyOffers');
 export const setComments = createAction<CommentDto[]>('data/comments');
-
+export const setOfferDataLoadingStatus = createAction<boolean>('data/setOfferDataLoadingStatus');

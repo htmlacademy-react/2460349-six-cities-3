@@ -26,3 +26,5 @@ export const selectComments = (state: RootState) => state.offer.comments;
 export const selectNearbyOffers = (state: RootState) => state.offer.nearbyOffers;
 
 export const selectUserData = (state: RootState) => state.main.user;
+
+export const selectOfferLoading = (state: RootState) => state.offer.isDataLoading;
