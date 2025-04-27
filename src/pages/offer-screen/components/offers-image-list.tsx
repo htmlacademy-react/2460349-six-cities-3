@@ -1,13 +1,18 @@
+import { useMemo } from 'react';
 import OfferImage from './offer-image';
 
-interface ImageProps {
+interface Props {
   images: string[];
 }
 
-function OffersImageList({ images }: ImageProps) {
+
+function OffersImageList({ images }: Props) {
+
+  const imagesWithKeys = useMemo(() => images.map((src) => ({ src, id: crypto.randomUUID() })) ?? [], [images]);
+
   return (
     <>
-      {images.map((img) => <OfferImage key={crypto.randomUUID()} image={img} />)}
+      {imagesWithKeys.map((img) => <OfferImage key={img.id} image={img.src} />)}
     </>
   );
 }
