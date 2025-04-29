@@ -2,31 +2,21 @@ import { FormEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch } from '../../store';
 import { loginAction } from '../../store/api-actions';
-import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { toast } from 'react-toastify';
 
 function LoginScreen() {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const handleFormSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
-      try {
-        await dispatch(loginAction({
-          email: emailRef.current.value,
-          password: passwordRef.current.value
-        }));
-
-        navigate(AppRoute.Root);
-      } catch (error) {
-        toast.error('Incorrect login or password');
-      }
+      await dispatch(loginAction({
+        email: emailRef.current.value,
+        password: passwordRef.current.value
+      }));
     }
   };
 

@@ -1,4 +1,4 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
 import MainScreen from '../../pages/main-screen/main-screen';
@@ -13,13 +13,14 @@ import { useAppSelector } from '../../store';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { useInitAuth } from '../../hooks/useInitAuth';
 import { selectAppLoading } from '../../store/selectors';
+import HistoryRouter from '../history-route';
+import browserHistory from '../../browser-history';
 
-
-type AppScreenProps = {
+type Props = {
   offers: OfferDto[];
 }
 
-function App({ offers }: AppScreenProps) {
+function App({ offers }: Props) {
   useInitAuth();
   const isDataLoading = useAppSelector(selectAppLoading);
 
@@ -31,7 +32,7 @@ function App({ offers }: AppScreenProps) {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history = {browserHistory}>
         <Routes>
           <Route path={AppRoute.Root} element={<Layout />}>
             <Route
@@ -60,7 +61,7 @@ function App({ offers }: AppScreenProps) {
             element={<NotFoundScreen />}
           />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }

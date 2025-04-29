@@ -2,12 +2,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, RootState } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { CommentDto, OfferDetailsDto, OfferDto } from '../types/types';
-import { APIRoute, AuthorizationStatus } from '../const';
-import { loadOffers, requireAuthorization, setComments, setCurrentOffer, setDataLoadingStatus, setNearbyOffers, setOfferDataLoadingStatus, setUserData } from './action';
+import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
+import { loadOffers, redirectToRoute, requireAuthorization, setComments, setCurrentOffer, setDataLoadingStatus, setNearbyOffers, setOfferDataLoadingStatus, setUserData } from './action';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
 import { CommentPostData } from '../types/comment-post-data';
+import { toast } from 'react-toastify';
 
 
 export const fetchUserData = createAsyncThunk<void, undefined, {
@@ -61,11 +62,19 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 }>(
   'user/login',
   async ({ email, password }, { dispatch, extra: api }) => {
-    const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
-    const { token } = data;
-    saveToken(token);
-    dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    dispatch(setUserData(data));
+    try {
+      const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
+      const { token } = data;
+      saveToken(token);
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(setUserData(data));
+      dispatch(redirectToRoute(AppRoute.Root));
+    } catch (error) {
+      dropToken();
+      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+      dispatch(setUserData(null));
+      toast.error('Invalid username or password. Try again');
+    }
   }
 );
 

@@ -4,10 +4,11 @@ import { offerReducer } from './reducers/offer-reducer';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../types/state';
 import { createAPI } from '../services/api';
+import { redirect } from './middlewares/redirect';
 
 export const api = createAPI();
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   main: mainReducer,
   offer: offerReducer,
 });
@@ -19,7 +20,7 @@ export const store = configureStore({
       thunk: {
         extraArgument: api,
       }
-    })
+    }).concat(redirect)
 });
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
