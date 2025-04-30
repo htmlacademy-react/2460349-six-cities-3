@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { selectAuthorizationStatus, selectUserEmail } from '../../store/selectors';
 import { logoutAction } from '../../store/api-actions';
 import { memo } from 'react';
+import { selectAuthorizationStatus, selectUserData } from '../../store/user-slice/user-selectors';
 
 interface Props {
   isLoginPage?: boolean;
@@ -11,9 +11,11 @@ interface Props {
 
 function HeaderImpl({ isLoginPage = false, }: Props) {
   const dispatch = useAppDispatch();
-  const email = useAppSelector(selectUserEmail);
+  const user = useAppSelector(selectUserData);
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+
+  const email = user?.email ?? '';
 
   return (
     <header className="header">

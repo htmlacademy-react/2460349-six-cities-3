@@ -1,6 +1,7 @@
 import { AuthorizationStatus } from '../../../const';
 import { useAppSelector } from '../../../store';
-import { selectComments, selectAuthorizationStatus } from '../../../store/selectors';
+import { selectComments } from '../../../store/offer-slice/offer-selectors';
+import { selectAuthorizationStatus } from '../../../store/user-slice/user-selectors';
 import ReviewsForm from './reviews-form';
 import ReviewsList from './reviews-list';
 

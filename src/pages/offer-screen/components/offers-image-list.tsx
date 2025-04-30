@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../../store';
-import { selectCurrentOffer } from '../../../store/selectors';
+import { selectCurrentOffer } from '../../../store/offer-slice/offer-selectors';
 import OfferImage from './offer-image';
 
 function OffersImageList() {

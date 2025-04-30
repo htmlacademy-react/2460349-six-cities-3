@@ -12,9 +12,9 @@ import { OfferDto } from '../../types/types';
 import { useAppSelector } from '../../store';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { useInitAuth } from '../../hooks/useInitAuth';
-import { selectAppLoading } from '../../store/selectors';
 import HistoryRouter from '../history-route';
 import browserHistory from '../../browser-history';
+import { selectAppLoading } from '../../store/main-slice/main-selectors';
 
 type Props = {
   offers: OfferDto[];

@@ -6,9 +6,7 @@ import { UserData } from './user-data';
 export interface MainState {
   city: string;
   offers: OfferDto[];
-  authorizationStatus: AuthorizationStatus;
   isDataLoading: boolean;
-  user: UserData | null;
 }
 
 export interface OfferState {
@@ -16,8 +14,13 @@ export interface OfferState {
   nearbyOffers: OfferDto[];
   comments: CommentDto[];
   isDataLoading: boolean;
+  isCommentSending: boolean;
 }
 
+export interface UserState {
+  authorizationStatus: AuthorizationStatus;
+  user: UserData | null;
+}
 
 export type AppDispatch = typeof store.dispatch;
 

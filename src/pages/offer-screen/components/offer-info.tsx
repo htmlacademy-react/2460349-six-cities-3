@@ -1,9 +1,9 @@
 import clsx from 'clsx';
 import { RATING_MULTIPLIER } from '../../../const';
 import { useAppSelector } from '../../../store';
-import { selectCurrentOffer } from '../../../store/selectors';
 import OfferInsideItem from './offer-inside-item';
 import OfferHost from './offer-host';
+import { selectCurrentOffer } from '../../../store/offer-slice/offer-selectors';
 
 function OfferInfo() {
   const offer = useAppSelector(selectCurrentOffer);

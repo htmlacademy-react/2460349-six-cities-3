@@ -6,13 +6,13 @@ import Map from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { useEffect } from 'react';
 import { fetchOfferData } from '../../store/api-actions';
-import { selectCurrentOffer, selectNearbyOffers, selectOfferLoading } from '../../store/selectors';
 import { OfferDetailsDto, OfferDto } from '../../types/types';
 import OffersImageList from './components/offers-image-list';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NearPlaces from './components/near-places';
 import OfferReviews from './components/offer-reviews';
 import OfferInfo from './components/offer-info';
+import { selectCurrentOffer, selectNearbyOffers, selectOfferLoading } from '../../store/offer-slice/offer-selectors';
 
 function OfferScreen() {
   const { id } = useParams();

@@ -1,8 +1,8 @@
 import { CITIES } from '../../../const';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeCity } from '../../../store/action';
-import { selectCurrentCityName } from '../../../store/selectors';
+import { changeCity } from '../../../store/main-slice/main-slice';
 import CityTab from './city-tab';
+import { selectCurrentCityName } from '../../../store/main-slice/main-selectors';
 
 function Tabs() {
   const dispatch = useDispatch();
