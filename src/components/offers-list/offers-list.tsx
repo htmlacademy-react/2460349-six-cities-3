@@ -1,7 +1,7 @@
 import OfferCard from '../offer-card/offer-card';
 import { OfferDto } from '../../types/types';
 import { Sorting } from '../../const';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 
 interface Props {
   offers: OfferDto[];
@@ -29,7 +29,7 @@ function OffersListImpl({ offers, setActiveOfferId, sortType = Sorting.Default }
     }
   };
 
-  const sortedOffers = useMemo<OfferDto[]>(() => sortingOffers(offers, sortType), [offers, sortType]);
+  const sortedOffers = sortingOffers(offers, sortType);
 
   return (
     <>

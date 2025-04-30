@@ -1,15 +1,17 @@
-import { useMemo } from 'react';
+import { useAppSelector } from '../../../store';
+import { selectCurrentOffer } from '../../../store/selectors';
 import OfferImage from './offer-image';
 
-interface Props {
-  images: string[];
-}
+function OffersImageList() {
+  const offer = useAppSelector(selectCurrentOffer);
 
+  if (!offer) {
+    return null;
+  }
 
-function OffersImageList({ images }: Props) {
+  const { images } = offer;
 
-  const imagesWithKeys = useMemo(() => images.map((src) => ({ src, id: crypto.randomUUID() })) ?? [], [images]);
-
+  const imagesWithKeys = images.map((src) => ({ src, id: crypto.randomUUID() })) ?? [];
   return (
     <>
       {imagesWithKeys.map((img) => <OfferImage key={img.id} image={img.src} />)}
