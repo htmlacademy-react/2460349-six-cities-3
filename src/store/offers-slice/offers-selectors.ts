@@ -21,3 +21,5 @@ export const selectCurrentOffer = (state: RootState) => state[NameSpace.Offers].
 export const selectNearbyOffers = (state: RootState) => state[NameSpace.Offers].nearbyOffers;
 
 export const selectOfferLoading = (state: RootState) => state[NameSpace.Offers].isOfferDataLoading;
+
+export const selectErrorStatus = (state: RootState): boolean => state[NameSpace.Offers].hasError;

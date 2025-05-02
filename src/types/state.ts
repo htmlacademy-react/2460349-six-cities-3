@@ -16,6 +16,7 @@ export interface OffersState {
   city: string;
   offers: OfferDto[];
   isDataLoading: boolean;
+  hasError: boolean;
 }
 
 export interface UserState {

@@ -11,6 +11,7 @@ const initialState: OffersState = {
   city: 'Paris',
   offers: [],
   isDataLoading: false,
+  hasError: false,
 };
 
 export const offersSlice = createSlice({
@@ -52,6 +53,7 @@ export const offersSlice = createSlice({
       })
       .addCase(fetchOffersAction.pending, (state) => {
         state.isDataLoading = true;
+        state.hasError = false;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action: PayloadAction<OfferDto[]>) => {
         state.offers = action.payload;
@@ -59,6 +61,7 @@ export const offersSlice = createSlice({
       })
       .addCase(fetchOffersAction.rejected, (state) => {
         state.isDataLoading = false;
+        state.hasError = true;
       });
   },
 });
