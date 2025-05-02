@@ -3,16 +3,16 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../types/state';
 import { createAPI } from '../services/api';
 import { redirect } from './middlewares/redirect';
-import mainSlice from './main-slice/main-slice';
-import offerSlice from './offer-slice/offer-slice';
+import reviewsSlice from './reviews-slice/reviews-slice';
+import offersSlice from './offers-slice/offers-slice';
 import { NameSpace } from '../const';
 import { userSlice } from './user-slice/user-slice';
 
 export const api = createAPI();
 
 export const rootReducer = combineReducers({
-  [NameSpace.Main]: mainSlice.reducer,
-  [NameSpace.Offer]: offerSlice.reducer,
+  [NameSpace.Reviews]: reviewsSlice.reducer,
+  [NameSpace.Offers]: offersSlice.reducer,
   [NameSpace.User]: userSlice.reducer,
 });
 

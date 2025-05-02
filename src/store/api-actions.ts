@@ -74,7 +74,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 export const fetchOfferData = createAsyncThunk<{
   offer: OfferDetailsDto | null;
   nearby: OfferDto[];
-  comments: CommentDto[];
 }, string, {
   dispatch: AppDispatch;
   state: RootState;
@@ -85,11 +84,29 @@ export const fetchOfferData = createAsyncThunk<{
     try {
       const { data: offer } = await api.get<OfferDetailsDto>(`${APIRoute.Offers}/${id}`);
       const { data: nearby } = await api.get<OfferDto[]>(`${APIRoute.Offers}/${id}/nearby`);
+
+      return { offer, nearby };
+    } catch {
+      return { offer: null, nearby: [] };
+    }
+
+  }
+);
+export const fetchCommentsOfferData = createAsyncThunk<{
+  comments: CommentDto[];
+}, string, {
+  dispatch: AppDispatch;
+  state: RootState;
+  extra: AxiosInstance;
+}>(
+  'offer/fetchCommentsOfferData',
+  async (id, { extra: api }) => {
+    try {
       const { data: comments } = await api.get<CommentDto[]>(`${APIRoute.Comments}/${id}`);
 
-      return { offer, nearby, comments };
+      return { comments };
     } catch {
-      return { offer: null, nearby: [], comments: [] };
+      return { comments: [] };
     }
 
   }

@@ -14,7 +14,7 @@ import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { useInitAuth } from '../../hooks/useInitAuth';
 import HistoryRouter from '../history-route';
 import browserHistory from '../../browser-history';
-import { selectAppLoading } from '../../store/main-slice/main-selectors';
+import { selectAppLoading } from '../../store/offers-slice/offers-selectors';
 
 type Props = {
   offers: OfferDto[];

@@ -1,7 +1,7 @@
 import OffersList from '../../../components/offers-list/offers-list';
 import { NEARBY_OFFERS_COUNT } from '../../../const';
 import { useAppSelector } from '../../../store';
-import { selectNearbyOffers } from '../../../store/offer-slice/offer-selectors';
+import { selectNearbyOffers } from '../../../store/offers-slice/offers-selectors';
 
 function NearPlaces() {
   const nearbyOffers = useAppSelector(selectNearbyOffers);

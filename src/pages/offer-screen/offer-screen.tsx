@@ -5,17 +5,17 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Map from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { useEffect } from 'react';
-import { fetchOfferData } from '../../store/api-actions';
+import { fetchCommentsOfferData, fetchOfferData } from '../../store/api-actions';
 import { OfferDetailsDto, OfferDto } from '../../types/types';
 import OffersImageList from './components/offers-image-list';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NearPlaces from './components/near-places';
 import OfferReviews from './components/offer-reviews';
 import OfferInfo from './components/offer-info';
-import { selectCurrentOffer, selectNearbyOffers, selectOfferLoading } from '../../store/offer-slice/offer-selectors';
+import { selectCurrentOffer, selectNearbyOffers, selectOfferLoading } from '../../store/offers-slice/offers-selectors';
 
 function OfferScreen() {
-  const { id } = useParams();
+  const { id: offerId } = useParams();
   const dispatch = useAppDispatch();
 
   const offer = useAppSelector(selectCurrentOffer);
@@ -29,10 +29,11 @@ function OfferScreen() {
   });
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchOfferData(id));
+    if (offerId) {
+      dispatch(fetchOfferData(offerId));
+      dispatch(fetchCommentsOfferData(offerId));
     }
-  }, [dispatch, id]);
+  }, [dispatch, offerId]);
 
   if (isOfferDataLoading) {
     return <LoadingScreen />;

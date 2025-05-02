@@ -3,18 +3,19 @@ import { store } from '../store';
 import { CommentDto, OfferDetailsDto, OfferDto } from './types';
 import { UserData } from './user-data';
 
-export interface MainState {
-  city: string;
-  offers: OfferDto[];
+export interface ReviewsState {
+  isCommentSending: boolean;
+  comments: CommentDto[];
   isDataLoading: boolean;
 }
 
-export interface OfferState {
+export interface OffersState {
   currentOffer: OfferDetailsDto | null;
   nearbyOffers: OfferDto[];
-  comments: CommentDto[];
+  isOfferDataLoading: boolean;
+  city: string;
+  offers: OfferDto[];
   isDataLoading: boolean;
-  isCommentSending: boolean;
 }
 
 export interface UserState {

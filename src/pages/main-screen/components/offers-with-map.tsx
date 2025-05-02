@@ -4,7 +4,7 @@ import Map from '../../../components/map/map';
 import { useState } from 'react';
 import { useAppSelector } from '../../../store';
 import { Sorting } from '../../../const';
-import { selectCurrentCity, selectOffersByCity } from '../../../store/main-slice/main-selectors';
+import { selectCurrentCity, selectOffersByCity } from '../../../store/offers-slice/offers-selectors';
 
 function OffersWithMap() {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);

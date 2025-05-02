@@ -3,7 +3,8 @@ import { RATING_MULTIPLIER } from '../../../const';
 import { useAppSelector } from '../../../store';
 import OfferInsideItem from './offer-inside-item';
 import OfferHost from './offer-host';
-import { selectCurrentOffer } from '../../../store/offer-slice/offer-selectors';
+import { selectCurrentOffer } from '../../../store/offers-slice/offers-selectors';
+import { capitalize } from '../../../utils';
 
 function OfferInfo() {
   const offer = useAppSelector(selectCurrentOffer);
@@ -47,7 +48,7 @@ function OfferInfo() {
       </div>
       <ul className="offer__features">
         <li className="offer__feature offer__feature--entire">
-          {type.charAt(0).toUpperCase() + type.slice(1)}
+          {capitalize(type)}
         </li>
         <li className="offer__feature offer__feature--bedrooms">
           {bedrooms} Bedrooms
