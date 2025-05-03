@@ -1,15 +1,23 @@
 import { CITIES } from '../../../const';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeCity } from '../../../store/action';
-import { selectCurrentCityName } from '../../../store/selectors';
 import CityTab from './city-tab';
+import { selectErrorStatus, selectCurrentCityName, selectOffersLoading } from '../../../store/offers-slice/offers-selectors';
+
+import { useAppDispatch, useAppSelector } from '../../../store';
+import { fetchOffersAction } from '../../../store/api-actions';
+import { setCity } from '../../../store/offers-slice/offers-slice';
 
 function Tabs() {
-  const dispatch = useDispatch();
-  const currentCity = useSelector(selectCurrentCityName);
+  const dispatch = useAppDispatch();
+  const currentCity = useAppSelector(selectCurrentCityName);
+  const hasError = useAppSelector(selectErrorStatus);
+  const isLoading = useAppSelector(selectOffersLoading);
 
   const handleCityClick = (city: string) => {
-    dispatch(changeCity(city));
+    dispatch(setCity(city));
+
+    if(hasError && !isLoading) {
+      dispatch(fetchOffersAction());
+    }
   };
 
   return (

@@ -3,20 +3,28 @@ import { store } from '../store';
 import { CommentDto, OfferDetailsDto, OfferDto } from './types';
 import { UserData } from './user-data';
 
-export interface MainState {
-  city: string;
-  offers: OfferDto[];
-  authorizationStatus: AuthorizationStatus;
+export interface ReviewsState {
+  isCommentSending: boolean;
+  comments: CommentDto[];
   isDataLoading: boolean;
-  user: UserData | null;
 }
 
-export interface OfferState {
+export interface OffersState {
   currentOffer: OfferDetailsDto | null;
   nearbyOffers: OfferDto[];
-  comments: CommentDto[];
+  isOfferDataLoading: boolean;
+  city: string;
+  offers: OfferDto[];
+  isOffersDataLoading: boolean;
+  hasError: boolean;
+  favorites: OfferDto[];
+  isFavoritesDataLoading: boolean;
 }
 
+export interface UserState {
+  authorizationStatus: AuthorizationStatus;
+  user: UserData | null;
+}
 
 export type AppDispatch = typeof store.dispatch;
 

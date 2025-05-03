@@ -1,54 +1,38 @@
 import { Helmet } from 'react-helmet-async';
-import { OfferDto } from '../../types/types';
-import FavoritesOffer from './components/favorites-offer';
+import { useEffect } from 'react';
+import { fetchFavoritesData } from '../../store/api-actions';
+import { useAppDispatch, useAppSelector } from '../../store';
+import FavoritesList from './components/favorites-list';
+import { selectFavoritesOffersLength } from '../../store/offers-slice/offers-selectors';
+import FavoritesEmpty from './components/favorites-empty';
+import clsx from 'clsx';
 
-interface Props {
-  offers: OfferDto[];
-}
 
-function FavoritesScreen({ offers }: Props) {
+function FavoritesScreen() {
+  const dispatch = useAppDispatch();
+  const favoritesLength = useAppSelector(selectFavoritesOffersLength);
+  const isEmpty = favoritesLength === 0;
 
-  const offersByCity = offers.reduce<Record<string, OfferDto[]>>((acc, offer) => {
-    const city = offer.city.name;
-    if (!acc[city]) {
-      acc[city] = [];
-    }
-    acc[city].push(offer);
-    return acc;
-  }, {});
+  useEffect(() => {
+    dispatch(fetchFavoritesData());
+  }, [dispatch]);
 
   return (
     <>
       <Helmet>
         <title>6 Cities Favorites</title>
       </Helmet>
-      <main className="page__main page__main--favorites">
+      <main
+        className={clsx(
+          'page__main',
+          'page__main--favorites',
+          { 'page__main--favorites-empty': isEmpty }
+        )}
+      >
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              <ul className="favorites__list">
-                {Object.entries(offersByCity).map(([city, cityOffers]) => (
-                  <li key={city} className="favorites__locations-items">
-                    <div className="favorites__locations locations locations--current">
-                      <div className="locations__item">
-                        <a className="locations__item-link" href="#">
-                          <span>{city}</span>
-                        </a>
-                      </div>
-                    </div>
-                    <div className="favorites__places">
-                      {cityOffers.map((offer) => (
-                        <FavoritesOffer key={offer.id} offer={offer} />
-                      ))}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </ul>
-          </section>
+          {isEmpty ? <FavoritesEmpty /> : <FavoritesList />}
         </div>
-      </main>
+      </main >
     </>
   );
 }

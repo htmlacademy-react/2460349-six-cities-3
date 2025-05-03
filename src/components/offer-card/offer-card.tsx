@@ -1,8 +1,13 @@
 import clsx from 'clsx';
 import { OfferDto } from '../../types/types';
 import { Link } from 'react-router-dom';
-import { RATING_MULTIPLIER } from '../../const';
+import { AppRoute, AuthorizationStatus, RATING_MULTIPLIER } from '../../const';
 import { memo } from 'react';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { fetchOffersAction, toggleFavoriteStatusAction } from '../../store/api-actions';
+import { FavoritesData } from '../../types/favorites-data';
+import { redirectToRoute } from '../../store/action';
+import { selectAuthorizationStatus } from '../../store/user-slice/user-selectors';
 
 interface Props {
   offer: OfferDto;
@@ -11,8 +16,20 @@ interface Props {
 }
 
 function OfferCardImpl({ offer, onMouseEnter, onMouseLeave }: Props) {
-  const { id, title, type, price, isFavorite, isPremium, rating, previewImage } = offer;
+  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
+  const handleFavoritesClick = async (data: FavoritesData) => {
+    if (!isAuth) {
+      dispatch(redirectToRoute(AppRoute.Login));
+      return;
+    }
+    await dispatch(toggleFavoriteStatusAction(data));
+    dispatch(fetchOffersAction());
+  };
+
+  const { id, title, type, price, isFavorite, isPremium, rating, previewImage } = offer;
   return (
     <article
       className="cities__card place-card"
@@ -42,6 +59,9 @@ function OfferCardImpl({ offer, onMouseEnter, onMouseLeave }: Props) {
               { 'place-card__bookmark-button--active': isFavorite }
             )}
             type="button"
+            onClick={() => {
+              handleFavoritesClick({ id, status: Number(!isFavorite) });
+            }}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>

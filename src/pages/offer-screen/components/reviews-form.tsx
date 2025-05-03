@@ -1,11 +1,9 @@
-import { useCallback, useMemo, useState } from 'react';
-import clsx from 'clsx';
-import { STAR_RATINGS } from '../../../const';
-import styles from './reviews-form.module.css';
+import { useCallback, useState } from 'react';
 import { useAppDispatch } from '../../../store';
 import { useParams } from 'react-router-dom';
 import { sendCommentAction } from '../../../store/api-actions';
 import { toast } from 'react-toastify';
+import RatingStars from './rating-stars';
 
 function ReviewsForm() {
   const { id: offerId } = useParams();
@@ -46,47 +44,18 @@ function ReviewsForm() {
     }
   };
 
-  const ratingStars = useMemo(() => (
-    STAR_RATINGS.map((star) => (
-      <div key={star}>
-        <input
-          className="form__rating-input visually-hidden"
-          name="rating"
-          value={star}
-          id={`${star}-stars`}
-          type="radio"
-          checked={review.rating === star}
-          onChange={handleRatingChange}
-        />
-        <label htmlFor={`${star}-stars`} className="reviews__rating-label form__rating-label">
-          <svg
-            className={clsx(
-              styles.formStarImage,
-              review.rating >= star && styles.filled
-            )}
-            width={37}
-            height={33}
-          >
-            <use xlinkHref="#icon-star" />
-          </svg>
-        </label>
-      </div>
-    ))
-  ), [review.rating, handleRatingChange]);
-
-
   return (
     <form
       className="reviews__form form"
       action="#"
       method="post"
       onSubmit={(evt) => {
-        void handleSubmit(evt);
+        handleSubmit(evt);
       }}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {ratingStars}
+        <RatingStars rating={review.rating} onRatingChange={handleRatingChange} />
       </div>
       <textarea
         className="reviews__textarea form__textarea"

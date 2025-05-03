@@ -1,13 +1,20 @@
+import { useAppSelector } from '../../../store';
+import { selectCurrentOffer } from '../../../store/offers-slice/offers-selectors';
 import OfferImage from './offer-image';
 
-interface ImageProps {
-  images: string[];
-}
+function OffersImageList() {
+  const offer = useAppSelector(selectCurrentOffer);
 
-function OffersImageList({ images }: ImageProps) {
+  if (!offer) {
+    return null;
+  }
+
+  const { images } = offer;
+
+  const imagesWithKeys = images.map((src) => ({ src, id: crypto.randomUUID() })) ?? [];
   return (
     <>
-      {images.map((img) => <OfferImage key={crypto.randomUUID()} image={img} />)}
+      {imagesWithKeys.map((img) => <OfferImage key={img.id} image={img.src} />)}
     </>
   );
 }

@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import { AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { selectAuthorizationStatus, selectUserEmail } from '../../store/selectors';
 import { logoutAction } from '../../store/api-actions';
 import { memo } from 'react';
+import { selectAuthorizationStatus, selectUserData } from '../../store/user-slice/user-selectors';
+import { selectFavoritesOffersLength } from '../../store/offers-slice/offers-selectors';
 
 interface Props {
   isLoginPage?: boolean;
@@ -11,9 +12,12 @@ interface Props {
 
 function HeaderImpl({ isLoginPage = false, }: Props) {
   const dispatch = useAppDispatch();
-  const email = useAppSelector(selectUserEmail);
+  const user = useAppSelector(selectUserData);
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+  const favorites = useAppSelector(selectFavoritesOffersLength);
+
+  const email = user?.email ?? '';
 
   return (
     <header className="header">
@@ -34,7 +38,7 @@ function HeaderImpl({ isLoginPage = false, }: Props) {
                       ?
                       <>
                         <span className="header__user-name user__name">{email}</span>
-                        <span className="header__favorite-count">3</span>
+                        <span className="header__favorite-count">{favorites}</span>
                       </>
                       :
                       <span className="header__login">Sign in</span>}

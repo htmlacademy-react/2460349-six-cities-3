@@ -2,31 +2,21 @@ import { FormEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch } from '../../store';
 import { loginAction } from '../../store/api-actions';
-import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { toast } from 'react-toastify';
 
 function LoginScreen() {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const handleFormSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
-      try {
-        await dispatch(loginAction({
-          email: emailRef.current.value,
-          password: passwordRef.current.value
-        }));
-
-        navigate(AppRoute.Root);
-      } catch (error) {
-        toast.error('Incorrect login or password');
-      }
+      await dispatch(loginAction({
+        email: emailRef.current.value,
+        password: passwordRef.current.value
+      }));
     }
   };
 
@@ -39,7 +29,12 @@ function LoginScreen() {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post" onSubmit={(evt) => void handleFormSubmit(evt)}>
+
+            <form className="login__form form" action="#" method="post"
+              onSubmit={(evt) => {
+                handleFormSubmit(evt);
+              }}
+            >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input ref={emailRef} className="login__input form__input" type="email" name="email" placeholder="Email" required />
