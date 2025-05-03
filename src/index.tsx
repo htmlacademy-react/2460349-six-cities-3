@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { Provider } from 'react-redux';
-import { mockOffers } from './components/mock/mock-offers';
 import { store } from './store';
 import { checkAuthAction, fetchOffersAction } from './store/api-actions';
 import {ToastContainer} from 'react-toastify';
@@ -19,7 +18,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer />
-      <App offers={mockOffers} />
+      <App />
     </Provider>
   </React.StrictMode>
 );

@@ -50,7 +50,7 @@ function ReviewsForm() {
       action="#"
       method="post"
       onSubmit={(evt) => {
-        void handleSubmit(evt);
+        handleSubmit(evt);
       }}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>

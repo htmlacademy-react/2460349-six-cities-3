@@ -44,7 +44,7 @@ export interface OfferDetailsDto {
 }
 
 export interface OfferDto {
-  id?: string;
+  id: string;
   title: string;
   type: string;
   price: number;

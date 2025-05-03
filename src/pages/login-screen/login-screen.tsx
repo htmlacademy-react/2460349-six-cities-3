@@ -29,7 +29,12 @@ function LoginScreen() {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post" onSubmit={(evt) => void handleFormSubmit(evt)}>
+
+            <form className="login__form form" action="#" method="post"
+              onSubmit={(evt) => {
+                handleFormSubmit(evt);
+              }}
+            >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input ref={emailRef} className="login__input form__input" type="email" name="email" placeholder="Email" required />

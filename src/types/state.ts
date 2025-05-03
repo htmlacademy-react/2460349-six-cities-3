@@ -15,8 +15,10 @@ export interface OffersState {
   isOfferDataLoading: boolean;
   city: string;
   offers: OfferDto[];
-  isDataLoading: boolean;
+  isOffersDataLoading: boolean;
   hasError: boolean;
+  favorites: OfferDto[];
+  isFavoritesDataLoading: boolean;
 }
 
 export interface UserState {

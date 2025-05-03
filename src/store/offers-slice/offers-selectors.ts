@@ -14,12 +14,18 @@ export const selectOffersByCity = createSelector(
   (city, offers) => offers.filter((offer) => offer.city.name === city)
 );
 
-export const selectAppLoading = (state: RootState) => state[NameSpace.Offers].isDataLoading;
+export const selectOffersLoading = (state: RootState) => state[NameSpace.Offers].isOffersDataLoading;
+
+export const selectOfferLoading = (state: RootState) => state[NameSpace.Offers].isOfferDataLoading;
+
+export const selectFavoritesLoading = (state: RootState) => state[NameSpace.Offers].isFavoritesDataLoading;
 
 export const selectCurrentOffer = (state: RootState) => state[NameSpace.Offers].currentOffer;
 
 export const selectNearbyOffers = (state: RootState) => state[NameSpace.Offers].nearbyOffers;
 
-export const selectOfferLoading = (state: RootState) => state[NameSpace.Offers].isOfferDataLoading;
-
 export const selectErrorStatus = (state: RootState): boolean => state[NameSpace.Offers].hasError;
+
+export const selectFavoritesOffers = (state: RootState) => state[NameSpace.Offers].favorites;
+
+export const selectFavoritesOffersLength = (state: RootState) => state[NameSpace.Offers].offers.filter((offer) => offer.isFavorite).length;

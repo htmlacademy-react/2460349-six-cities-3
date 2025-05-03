@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { OffersState } from '../../types/state';
-import { fetchOfferData, fetchOffersAction } from '../api-actions';
+import { fetchFavoritesData, fetchOfferData, fetchOffersAction } from '../api-actions';
 import { OfferDetailsDto, OfferDto } from '../../types/types';
 
 const initialState: OffersState = {
@@ -10,8 +10,10 @@ const initialState: OffersState = {
   isOfferDataLoading: false,
   city: 'Paris',
   offers: [],
-  isDataLoading: false,
+  isOffersDataLoading: false,
   hasError: false,
+  favorites: [],
+  isFavoritesDataLoading: false,
 };
 
 export const offersSlice = createSlice({
@@ -27,15 +29,12 @@ export const offersSlice = createSlice({
     setOfferDataLoadingStatus: (state, action: PayloadAction<boolean>) => {
       state.isOfferDataLoading = action.payload;
     },
-    changeCity: (state, action: PayloadAction<string>) => {
+    setCity: (state, action: PayloadAction<string>) => {
       state.city = action.payload;
     },
     setOffers: (state, action: PayloadAction<OfferDto[]>) => {
       state.offers = action.payload;
-    },
-    setDataLoadingStatus: (state, action: PayloadAction<boolean>) => {
-      state.isDataLoading = action.payload;
-    },
+    }
   },
   extraReducers(builder) {
     builder
@@ -52,20 +51,30 @@ export const offersSlice = createSlice({
         state.isOfferDataLoading = false;
       })
       .addCase(fetchOffersAction.pending, (state) => {
-        state.isDataLoading = true;
+        state.isOffersDataLoading = true;
         state.hasError = false;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action: PayloadAction<OfferDto[]>) => {
         state.offers = action.payload;
-        state.isDataLoading = false;
+        state.isOffersDataLoading = false;
       })
       .addCase(fetchOffersAction.rejected, (state) => {
-        state.isDataLoading = false;
+        state.isOffersDataLoading = false;
         state.hasError = true;
+      })
+      .addCase(fetchFavoritesData.pending, (state) => {
+        state.isFavoritesDataLoading = true;
+      })
+      .addCase(fetchFavoritesData.fulfilled, (state, action: PayloadAction<OfferDto[]>) => {
+        state.favorites = action.payload;
+        state.isFavoritesDataLoading = false;
+      })
+      .addCase(fetchFavoritesData.rejected, (state) => {
+        state.isFavoritesDataLoading = false;
       });
   },
 });
 
-export const { setCurrentOffer, setNearbyOffers, setOfferDataLoadingStatus, changeCity, setOffers, setDataLoadingStatus } = offersSlice.actions;
+export const { setCurrentOffer, setNearbyOffers, setOfferDataLoadingStatus, setCity, setOffers } = offersSlice.actions;
 
 export default offersSlice;

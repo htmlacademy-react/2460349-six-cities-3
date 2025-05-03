@@ -3,6 +3,9 @@ import { OfferDto } from '../../types/types';
 import { Link } from 'react-router-dom';
 import { RATING_MULTIPLIER } from '../../const';
 import { memo } from 'react';
+import { useAppDispatch } from '../../store';
+import { fetchOffersAction, toggleFavoriteStatusAction } from '../../store/api-actions';
+import { FavoritesData } from '../../types/favorites-data';
 
 interface Props {
   offer: OfferDto;
@@ -11,8 +14,14 @@ interface Props {
 }
 
 function OfferCardImpl({ offer, onMouseEnter, onMouseLeave }: Props) {
-  const { id, title, type, price, isFavorite, isPremium, rating, previewImage } = offer;
+  const dispatch = useAppDispatch();
 
+  const handleFavoritesClick = async (data: FavoritesData) => {
+    await dispatch(toggleFavoriteStatusAction(data));
+    dispatch(fetchOffersAction());
+  };
+
+  const { id, title, type, price, isFavorite, isPremium, rating, previewImage } = offer;
   return (
     <article
       className="cities__card place-card"
@@ -42,6 +51,9 @@ function OfferCardImpl({ offer, onMouseEnter, onMouseLeave }: Props) {
               { 'place-card__bookmark-button--active': isFavorite }
             )}
             type="button"
+            onClick={() => {
+              handleFavoritesClick({ id, status: Number(!isFavorite) });
+            }}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>

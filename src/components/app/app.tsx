@@ -8,27 +8,12 @@ import LoginScreen from '../../pages/login-screen/login-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import { OfferDto } from '../../types/types';
-import { useAppSelector } from '../../store';
-import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { useInitAuth } from '../../hooks/useInitAuth';
 import HistoryRouter from '../history-route';
 import browserHistory from '../../browser-history';
-import { selectAppLoading } from '../../store/offers-slice/offers-selectors';
 
-type Props = {
-  offers: OfferDto[];
-}
-
-function App({ offers }: Props) {
+function App() {
   useInitAuth();
-  const isDataLoading = useAppSelector(selectAppLoading);
-
-  if(isDataLoading){
-    return (
-      <LoadingScreen/>
-    );
-  }
 
   return (
     <HelmetProvider>
@@ -43,7 +28,7 @@ function App({ offers }: Props) {
               path={AppRoute.Favorites}
               element={
                 <PrivateRoute>
-                  <FavoritesScreen offers={offers}/>
+                  <FavoritesScreen />
                 </PrivateRoute>
               }
             />
