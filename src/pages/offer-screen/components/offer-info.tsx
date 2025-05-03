@@ -1,19 +1,36 @@
 import clsx from 'clsx';
-import { RATING_MULTIPLIER } from '../../../const';
-import { useAppSelector } from '../../../store';
+import { AppRoute, AuthorizationStatus, RATING_MULTIPLIER } from '../../../const';
+import { useAppDispatch, useAppSelector } from '../../../store';
 import OfferInsideItem from './offer-inside-item';
 import OfferHost from './offer-host';
 import { selectCurrentOffer } from '../../../store/offers-slice/offers-selectors';
 import { capitalize } from '../../../utils';
+import { redirectToRoute } from '../../../store/action';
+import { toggleFavoriteStatusAction, fetchOffersAction, fetchOfferData } from '../../../store/api-actions';
+import { selectAuthorizationStatus } from '../../../store/user-slice/user-selectors';
+import { FavoritesData } from '../../../types/favorites-data';
 
 function OfferInfo() {
   const offer = useAppSelector(selectCurrentOffer);
+  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
   if (!offer) {
     return null;
   }
 
-  const { title, type, price, isFavorite, isPremium, rating, bedrooms, goods, maxAdults, description, host, } = offer;
+  const handleFavoritesClick = async (data: FavoritesData) => {
+    if (!isAuth) {
+      dispatch(redirectToRoute(AppRoute.Login));
+      return;
+    }
+    await dispatch(toggleFavoriteStatusAction(data));
+    dispatch(fetchOfferData(data.id));
+    dispatch(fetchOffersAction());
+  };
+
+  const {id, title, type, price, isFavorite, isPremium, rating, bedrooms, goods, maxAdults, description, host, } = offer;
   return (
     <>
       {isPremium && (
@@ -31,6 +48,9 @@ function OfferInfo() {
             'button',
             { 'offer__bookmark-button--active': isFavorite }
           )}
+          onClick={() => {
+            handleFavoritesClick({ id, status: Number(!isFavorite) });
+          }}
           type="button"
         >
           <svg className="offer__bookmark-icon" width={31} height={33}>
