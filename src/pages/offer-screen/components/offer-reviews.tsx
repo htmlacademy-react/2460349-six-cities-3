@@ -1,12 +1,12 @@
 import { AuthorizationStatus } from '../../../const';
 import { useAppSelector } from '../../../store';
-import { selectComments } from '../../../store/reviews-slice/reviews-selectors';
+import { selectVisibleComments } from '../../../store/reviews-slice/reviews-selectors';
 import { selectAuthorizationStatus } from '../../../store/user-slice/user-selectors';
 import ReviewsForm from './reviews-form';
 import ReviewsList from './reviews-list';
 
 function OfferReviews() {
-  const comments = useAppSelector(selectComments);
+  const comments = useAppSelector(selectVisibleComments);
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
