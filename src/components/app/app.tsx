@@ -11,6 +11,7 @@ import Layout from '../layout/layout';
 import { useInitAuth } from '../../hooks/use-init-auth';
 import HistoryRouter from '../history-route';
 import browserHistory from '../../browser-history';
+import PublicRoute from '../public-route/public-route';
 
 function App() {
   useInitAuth();
@@ -38,7 +39,11 @@ function App() {
             />
             <Route
               path={AppRoute.Login}
-              element={<LoginScreen />}
+              element={
+                <PublicRoute>
+                  <LoginScreen />
+                </PublicRoute>
+              }
             />
           </Route>
           <Route
