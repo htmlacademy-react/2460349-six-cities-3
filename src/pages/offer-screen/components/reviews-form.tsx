@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useAppDispatch } from '../../../store';
 import { useParams } from 'react-router-dom';
-import { sendCommentAction } from '../../../store/api-actions';
+import { sendComment } from '../../../store/api-actions';
 import { toast } from 'react-toastify';
 import RatingStars from './rating-stars';
 
@@ -30,7 +30,7 @@ function ReviewsForm() {
     }
     setIsSending(true);
     try {
-      await dispatch(sendCommentAction({
+      await dispatch(sendComment({
         comment: review.comment,
         rating: review.rating,
         id: offerId,

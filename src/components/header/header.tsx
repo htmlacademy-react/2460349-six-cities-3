@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { logoutAction } from '../../store/api-actions';
+import { logout } from '../../store/api-actions';
 import { memo } from 'react';
 import { selectAuthorizationStatus, selectUserData } from '../../store/user-slice/user-selectors';
 import { selectFavoriteOffersCount } from '../../store/offers-slice/offers-selectors';
@@ -51,7 +51,7 @@ function HeaderImpl({ isLoginPage = false, }: Props) {
                       to="/"
                       onClick={(evt) => {
                         evt.preventDefault();
-                        dispatch(logoutAction());
+                        dispatch(logout());
                       }}
                     >
                       <span className="header__signout">Sign out</span>

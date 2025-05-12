@@ -3,7 +3,7 @@ import CityTab from './city-tab';
 import { 	selectOffersErrorStatus, selectCurrentCityName, selectOffersLoading } from '../../../store/offers-slice/offers-selectors';
 
 import { useAppDispatch, useAppSelector } from '../../../store';
-import { fetchOffersAction } from '../../../store/api-actions';
+import { fetchOffers } from '../../../store/api-actions';
 import { setCity } from '../../../store/offers-slice/offers-slice';
 
 function Tabs() {
@@ -16,7 +16,7 @@ function Tabs() {
     dispatch(setCity(city));
 
     if(hasError && !isLoading) {
-      dispatch(fetchOffersAction());
+      dispatch(fetchOffers());
     }
   };
 

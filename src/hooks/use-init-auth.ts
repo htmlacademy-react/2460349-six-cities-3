@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch } from '../store';
 import { getToken } from '../services/token';
-import { checkAuthAction } from '../store/api-actions';
+import { checkAuth } from '../store/api-actions';
 
 export const useInitAuth = () => {
   const dispatch = useAppDispatch();
@@ -10,7 +10,7 @@ export const useInitAuth = () => {
     const token = getToken();
 
     if (token) {
-      dispatch(checkAuthAction());
+      dispatch(checkAuth());
     }
 
   }, [dispatch]);

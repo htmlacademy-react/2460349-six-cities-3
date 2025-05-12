@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../store';
-import { toggleFavoriteStatusAction, fetchFavoritesData, fetchOffersAction, fetchOfferData } from '../store/api-actions';
+import { toggleFavoriteStatus, fetchFavoriteOffers, fetchOffers, fetchOfferWithNearby } from '../store/api-actions';
 import { redirectToRoute } from '../store/action';
 import { AuthorizationStatus, AppRoute } from '../const';
 import { FavoritesData } from '../types/favorites-data';
@@ -18,18 +18,18 @@ export const useFavoritesToggle = (context: Context) => {
       return;
     }
 
-    await dispatch(toggleFavoriteStatusAction(data));
+    await dispatch(toggleFavoriteStatus(data));
 
     switch (context) {
       case 'offer':
-        dispatch(fetchOfferData(data.id));
+        dispatch(fetchOfferWithNearby(data.id));
         break;
       case 'favorites':
-        dispatch(fetchFavoritesData());
+        dispatch(fetchFavoriteOffers());
         break;
     }
 
-    dispatch(fetchOffersAction());
+    dispatch(fetchOffers());
   };
 
   return handleToggle;

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { OffersState } from '../../types/state';
-import { fetchFavoritesData, fetchOfferData, fetchOffersAction } from '../api-actions';
+import { fetchFavoriteOffers, fetchOfferWithNearby, fetchOffers } from '../api-actions';
 import { OfferDetailsDto, OfferDto } from '../../types/types';
 
 const initialState: OffersState = {
@@ -38,38 +38,38 @@ export const offersSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchOfferData.pending, (state) => {
+      .addCase(fetchOfferWithNearby.pending, (state) => {
         state.isOfferDataLoading = true;
       })
-      .addCase(fetchOfferData.fulfilled, (state, action) => {
+      .addCase(fetchOfferWithNearby.fulfilled, (state, action) => {
         state.currentOffer = action.payload.offer;
         state.nearbyOffers = action.payload.nearby;
 
         state.isOfferDataLoading = false;
       })
-      .addCase(fetchOfferData.rejected, (state) => {
+      .addCase(fetchOfferWithNearby.rejected, (state) => {
         state.isOfferDataLoading = false;
       })
-      .addCase(fetchOffersAction.pending, (state) => {
+      .addCase(fetchOffers.pending, (state) => {
         state.isOffersDataLoading = true;
         state.hasError = false;
       })
-      .addCase(fetchOffersAction.fulfilled, (state, action: PayloadAction<OfferDto[]>) => {
+      .addCase(fetchOffers.fulfilled, (state, action: PayloadAction<OfferDto[]>) => {
         state.offers = action.payload;
         state.isOffersDataLoading = false;
       })
-      .addCase(fetchOffersAction.rejected, (state) => {
+      .addCase(fetchOffers.rejected, (state) => {
         state.isOffersDataLoading = false;
         state.hasError = true;
       })
-      .addCase(fetchFavoritesData.pending, (state) => {
+      .addCase(fetchFavoriteOffers.pending, (state) => {
         state.isFavoritesDataLoading = true;
       })
-      .addCase(fetchFavoritesData.fulfilled, (state, action: PayloadAction<OfferDto[]>) => {
+      .addCase(fetchFavoriteOffers.fulfilled, (state, action: PayloadAction<OfferDto[]>) => {
         state.favorites = action.payload;
         state.isFavoritesDataLoading = false;
       })
-      .addCase(fetchFavoritesData.rejected, (state) => {
+      .addCase(fetchFavoriteOffers.rejected, (state) => {
         state.isFavoritesDataLoading = false;
       });
   },

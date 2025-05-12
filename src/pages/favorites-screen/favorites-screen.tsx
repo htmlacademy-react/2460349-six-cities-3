@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
-import { fetchFavoritesData } from '../../store/api-actions';
+import { fetchFavoriteOffers } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../store';
 import FavoritesList from './components/favorites-list';
 import { selectFavoriteOffersCount } from '../../store/offers-slice/offers-selectors';
@@ -14,7 +14,7 @@ function FavoritesScreen() {
   const isEmpty = favoritesLength === 0;
 
   useEffect(() => {
-    dispatch(fetchFavoritesData());
+    dispatch(fetchFavoriteOffers());
   }, [dispatch]);
 
   return (
