@@ -1,34 +1,21 @@
 import clsx from 'clsx';
-import { AppRoute, AuthorizationStatus, RATING_MULTIPLIER } from '../../../const';
-import { useAppDispatch, useAppSelector } from '../../../store';
+import { RATING_MULTIPLIER } from '../../../const';
+import { useAppSelector } from '../../../store';
 import OfferInsideItem from './offer-inside-item';
 import OfferHost from './offer-host';
 import { selectCurrentOffer } from '../../../store/offers-slice/offers-selectors';
 import { capitalize } from '../../../utils';
-import { redirectToRoute } from '../../../store/action';
-import { toggleFavoriteStatusAction, fetchOffersAction, fetchOfferData } from '../../../store/api-actions';
-import { selectAuthorizationStatus } from '../../../store/user-slice/user-selectors';
-import { FavoritesData } from '../../../types/favorites-data';
+import { useFavoritesToggle } from '../../../hooks/use-favorites-toggle';
 
 function OfferInfo() {
   const offer = useAppSelector(selectCurrentOffer);
-  const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
-  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+
+  const handleFavoritesClick = useFavoritesToggle('offer');
 
   if (!offer) {
     return null;
   }
 
-  const handleFavoritesClick = async (data: FavoritesData) => {
-    if (!isAuth) {
-      dispatch(redirectToRoute(AppRoute.Login));
-      return;
-    }
-    await dispatch(toggleFavoriteStatusAction(data));
-    dispatch(fetchOfferData(data.id));
-    dispatch(fetchOffersAction());
-  };
 
   const {id, title, type, price, isFavorite, isPremium, rating, bedrooms, goods, maxAdults, description, host, } = offer;
   return (

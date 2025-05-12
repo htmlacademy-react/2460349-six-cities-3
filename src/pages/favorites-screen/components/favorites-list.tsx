@@ -1,12 +1,12 @@
 import { useAppSelector } from '../../../store';
-import { selectFavoritesLoading, selectFavoritesOffers } from '../../../store/offers-slice/offers-selectors';
+import { selectFavoritesLoading, selectFavoriteOffers } from '../../../store/offers-slice/offers-selectors';
 import { OfferDto } from '../../../types/types';
 import LoadingScreen from '../../loading-screen/loading-screen';
 import FavoritesOffer from './favorites-offer';
 
 function FavoritesList() {
   const isLoading = useAppSelector(selectFavoritesLoading);
-  const favoritesOffers = useAppSelector(selectFavoritesOffers);
+  const favoritesOffers = useAppSelector(selectFavoriteOffers);
 
   const offersByCity = favoritesOffers.reduce<Record<string, OfferDto[]>>((acc, offer) => {
     const city = offer.city.name;

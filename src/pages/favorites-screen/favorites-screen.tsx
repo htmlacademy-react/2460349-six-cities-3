@@ -3,14 +3,14 @@ import { useEffect } from 'react';
 import { fetchFavoritesData } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../store';
 import FavoritesList from './components/favorites-list';
-import { selectFavoritesOffersLength } from '../../store/offers-slice/offers-selectors';
+import { selectFavoriteOffersCount } from '../../store/offers-slice/offers-selectors';
 import FavoritesEmpty from './components/favorites-empty';
 import clsx from 'clsx';
 
 
 function FavoritesScreen() {
   const dispatch = useAppDispatch();
-  const favoritesLength = useAppSelector(selectFavoritesOffersLength);
+  const favoritesLength = useAppSelector(selectFavoriteOffersCount);
   const isEmpty = favoritesLength === 0;
 
   useEffect(() => {

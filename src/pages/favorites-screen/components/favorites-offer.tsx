@@ -1,22 +1,15 @@
 import { Link } from 'react-router-dom';
 import { OfferDto } from '../../../types/types';
 import { RATING_MULTIPLIER } from '../../../const';
-import { toggleFavoriteStatusAction, fetchFavoritesData, fetchOffersAction } from '../../../store/api-actions';
-import { FavoritesData } from '../../../types/favorites-data';
-import { useAppDispatch } from '../../../store';
+import { useFavoritesToggle } from '../../../hooks/use-favorites-toggle';
 
 interface Props {
   offer: OfferDto;
 }
 
 function FavoritesOffer({ offer }: Props) {
-  const dispatch = useAppDispatch();
 
-  const handleFavoritesClick = async (data: FavoritesData) => {
-    await dispatch(toggleFavoriteStatusAction(data));
-    dispatch(fetchFavoritesData());
-    dispatch(fetchOffersAction());
-  };
+  const handleFavoritesClick = useFavoritesToggle('favorites');
 
   const { id, title, type, price, isPremium, rating, previewImage } = offer;
   return (

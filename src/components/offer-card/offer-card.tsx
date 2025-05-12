@@ -1,13 +1,9 @@
 import clsx from 'clsx';
 import { OfferDto } from '../../types/types';
 import { Link } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, RATING_MULTIPLIER } from '../../const';
+import { RATING_MULTIPLIER } from '../../const';
 import { memo } from 'react';
-import { useAppDispatch, useAppSelector } from '../../store';
-import { fetchOffersAction, toggleFavoriteStatusAction } from '../../store/api-actions';
-import { FavoritesData } from '../../types/favorites-data';
-import { redirectToRoute } from '../../store/action';
-import { selectAuthorizationStatus } from '../../store/user-slice/user-selectors';
+import { useFavoritesToggle } from '../../hooks/use-favorites-toggle';
 
 interface Props {
   offer: OfferDto;
@@ -16,18 +12,8 @@ interface Props {
 }
 
 function OfferCardImpl({ offer, onMouseEnter, onMouseLeave }: Props) {
-  const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
-  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
-  const handleFavoritesClick = async (data: FavoritesData) => {
-    if (!isAuth) {
-      dispatch(redirectToRoute(AppRoute.Login));
-      return;
-    }
-    await dispatch(toggleFavoriteStatusAction(data));
-    dispatch(fetchOffersAction());
-  };
+  const handleFavoritesClick = useFavoritesToggle('main');
 
   const { id, title, type, price, isFavorite, isPremium, rating, previewImage } = offer;
   return (

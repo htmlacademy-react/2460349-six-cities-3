@@ -1,12 +1,12 @@
-import ErrorScreen from '../../components/error-screen/error-screen';
+import NoOffersScreen from '../../components/no-offers-screen/no-offers-screen';
 import { useAppSelector } from '../../store';
-import { selectErrorStatus } from '../../store/offers-slice/offers-selectors';
+import { 	selectOffersErrorStatus } from '../../store/offers-slice/offers-selectors';
 import OffersWithMap from './components/offers-with-map';
 import Tabs from './components/tabs';
 import { Helmet } from 'react-helmet-async';
 
 function MainScreen() {
-  const hasError = useAppSelector(selectErrorStatus);
+  const hasError = useAppSelector(selectOffersErrorStatus);
 
   return (
     <>
@@ -16,7 +16,7 @@ function MainScreen() {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <Tabs />
-        {hasError ? <ErrorScreen /> : <OffersWithMap />}
+        {hasError ? <NoOffersScreen /> : <OffersWithMap />}
       </main>
     </>
   );

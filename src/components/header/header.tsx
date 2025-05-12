@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../store';
 import { logoutAction } from '../../store/api-actions';
 import { memo } from 'react';
 import { selectAuthorizationStatus, selectUserData } from '../../store/user-slice/user-selectors';
-import { selectFavoritesOffersLength } from '../../store/offers-slice/offers-selectors';
+import { selectFavoriteOffersCount } from '../../store/offers-slice/offers-selectors';
 
 interface Props {
   isLoginPage?: boolean;
@@ -15,7 +15,7 @@ function HeaderImpl({ isLoginPage = false, }: Props) {
   const user = useAppSelector(selectUserData);
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
-  const favorites = useAppSelector(selectFavoritesOffersLength);
+  const favorites = useAppSelector(selectFavoriteOffersCount);
 
   const email = user?.email ?? '';
 

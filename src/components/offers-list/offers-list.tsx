@@ -11,7 +11,7 @@ interface Props {
 
 function OffersListImpl({ offers, setActiveOfferId, sortType = Sorting.Default }: Props) {
 
-  const sortingOffers = (list: OfferDto[], sort: Sorting): OfferDto[] => {
+  const sortOffers = (list: OfferDto[], sort: Sorting): OfferDto[] => {
     if (sort === Sorting.Default) {
       return list;
     }
@@ -29,7 +29,7 @@ function OffersListImpl({ offers, setActiveOfferId, sortType = Sorting.Default }
     }
   };
 
-  const sortedOffers = sortingOffers(offers, sortType);
+  const sortedOffers = sortOffers(offers, sortType);
 
   return (
     <>
