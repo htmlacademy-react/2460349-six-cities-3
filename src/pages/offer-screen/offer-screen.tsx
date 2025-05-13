@@ -6,7 +6,7 @@ import Map from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { useEffect } from 'react';
 import { fetchOfferComments, fetchOfferWithNearby } from '../../store/api-actions';
-import { OfferDetailsDto, OfferDto } from '../../types/types';
+import { OfferDetailsDto, OfferDto } from '../../types/offer-dto';
 import OffersImageList from './components/offers-image-list';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NearPlaces from './components/near-places';

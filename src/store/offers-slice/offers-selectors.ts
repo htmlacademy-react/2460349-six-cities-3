@@ -1,7 +1,7 @@
 import { RootState } from '../../store';
 import { createSelector } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
-import { OfferDto } from '../../types/types';
+import { OfferDto } from '../../types/offer-dto';
 
 export const selectCurrentCityName = (state: RootState) => state[NameSpace.Offers].city;
 

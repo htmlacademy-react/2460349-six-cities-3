@@ -35,12 +35,8 @@ export enum Sorting {
 
 export enum APIRoute {
   Offers = '/offers',
-
   Favorite = '/favorite',
-  ChangeFavorite = '/favorite/:id/:status',
-
   Comments = '/comments',
-
   Login = '/login',
   Logout = '/logout',
 }

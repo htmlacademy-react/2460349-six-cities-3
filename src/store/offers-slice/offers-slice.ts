@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { OffersState } from '../../types/state';
 import { fetchFavoriteOffers, fetchOfferWithNearby, fetchOffers } from '../api-actions';
-import { OfferDetailsDto, OfferDto } from '../../types/types';
+import { OfferDetailsDto, OfferDto } from '../../types/offer-dto';
 
 const initialState: OffersState = {
   currentOffer: null,

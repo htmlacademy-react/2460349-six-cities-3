@@ -1,4 +1,4 @@
-import { CommentDto } from '../../../types/types';
+import { CommentDto } from '../../../types/comment-dto';
 import { RATING_MULTIPLIER } from '../../../const';
 import { formatterDate } from '../../../utils';
 

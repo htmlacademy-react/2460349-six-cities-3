@@ -1,6 +1,6 @@
 import { useAppSelector } from '../../../store';
 import { selectFavoritesLoading, selectFavoriteOffers } from '../../../store/offers-slice/offers-selectors';
-import { OfferDto } from '../../../types/types';
+import { OfferDto } from '../../../types/offer-dto';
 import LoadingScreen from '../../loading-screen/loading-screen';
 import FavoritesOffer from './favorites-offer';
 

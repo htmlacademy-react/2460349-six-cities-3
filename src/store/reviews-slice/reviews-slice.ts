@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ReviewsState } from '../../types/state';
 import { NameSpace } from '../../const';
-import { CommentDto } from '../../types/types';
+import { CommentDto } from '../../types/comment-dto';
 import { fetchOfferComments, sendComment } from '../api-actions';
 
 const initialState: ReviewsState = {

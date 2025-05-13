@@ -9,7 +9,7 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
 import { useInitAuth } from '../../hooks/use-init-auth';
-import HistoryRouter from '../history-route';
+import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import PublicRoute from '../public-route/public-route';
 

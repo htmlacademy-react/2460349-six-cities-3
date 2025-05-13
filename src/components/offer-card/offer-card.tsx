@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { OfferDto } from '../../types/types';
+import { OfferDto } from '../../types/offer-dto';
 import { Link } from 'react-router-dom';
 import { RATING_MULTIPLIER } from '../../const';
 import { memo } from 'react';
@@ -12,7 +12,6 @@ interface Props {
 }
 
 function OfferCardImpl({ offer, onMouseEnter, onMouseLeave }: Props) {
-
   const handleFavoritesClick = useFavoritesToggle('main');
 
   const { id, title, type, price, isFavorite, isPremium, rating, previewImage } = offer;

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, RootState } from '../types/state';
 import { AxiosInstance } from 'axios';
-import { CommentDto, OfferDetailsDto, OfferDto } from '../types/types';
+import { OfferDetailsDto, OfferDto } from '../types/offer-dto';
 import { APIRoute, AppRoute } from '../const';
 import { redirectToRoute } from './action';
 import { AuthData } from '../types/auth-data';
@@ -9,6 +9,7 @@ import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
 import { CommentPostData } from '../types/comment-post-data';
 import { FavoritesData } from '../types/favorites-data';
+import { CommentDto } from '../types/comment-dto';
 
 export const fetchOffers = createAsyncThunk<OfferDto[], undefined, {
   dispatch: AppDispatch;

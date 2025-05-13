@@ -8,10 +8,12 @@ import RatingStars from './rating-stars';
 
 function ReviewsForm() {
   const { id: offerId } = useParams();
+
   const [review, setReview] = useState({
     comment: '',
     rating: 0
   });
+
   const [isSending, setIsSending] = useState(false);
   const dispatch = useAppDispatch();
 

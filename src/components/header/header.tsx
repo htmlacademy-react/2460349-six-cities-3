@@ -57,7 +57,6 @@ function HeaderImpl({ isLoginPage = false, }: Props) {
                       <span className="header__signout">Sign out</span>
                     </Link>
                   </li>}
-
               </ul>
             </nav>
           )}

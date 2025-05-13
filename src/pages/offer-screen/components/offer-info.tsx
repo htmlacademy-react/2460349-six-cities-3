@@ -9,13 +9,11 @@ import { useFavoritesToggle } from '../../../hooks/use-favorites-toggle';
 
 function OfferInfo() {
   const offer = useAppSelector(selectCurrentOffer);
-
   const handleFavoritesClick = useFavoritesToggle('offer');
 
   if (!offer) {
     return null;
   }
-
 
   const {id, title, type, price, isFavorite, isPremium, rating, bedrooms, goods, maxAdults, description, host, } = offer;
   return (
@@ -78,6 +76,5 @@ function OfferInfo() {
     </>
   );
 }
-
 
 export default OfferInfo;

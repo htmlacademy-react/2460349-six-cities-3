@@ -1,5 +1,5 @@
 import OfferCard from '../offer-card/offer-card';
-import { OfferDto } from '../../types/types';
+import { OfferDto } from '../../types/offer-dto';
 import { Sorting } from '../../const';
 import { memo } from 'react';
 

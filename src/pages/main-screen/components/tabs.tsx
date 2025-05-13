@@ -9,7 +9,7 @@ import { setCity } from '../../../store/offers-slice/offers-slice';
 function Tabs() {
   const dispatch = useAppDispatch();
   const currentCity = useAppSelector(selectCurrentCityName);
-  const hasError = useAppSelector(	selectOffersErrorStatus);
+  const hasError = useAppSelector(selectOffersErrorStatus);
   const isLoading = useAppSelector(selectOffersLoading);
 
   const handleCityClick = (city: string) => {

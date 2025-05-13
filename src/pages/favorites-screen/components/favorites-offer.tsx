@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { OfferDto } from '../../../types/types';
+import { OfferDto } from '../../../types/offer-dto';
 import { RATING_MULTIPLIER } from '../../../const';
 import { useFavoritesToggle } from '../../../hooks/use-favorites-toggle';
 
@@ -8,7 +8,6 @@ interface Props {
 }
 
 function FavoritesOffer({ offer }: Props) {
-
   const handleFavoritesClick = useFavoritesToggle('favorites');
 
   const { id, title, type, price, isPremium, rating, previewImage } = offer;
