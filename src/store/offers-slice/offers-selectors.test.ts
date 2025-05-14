@@ -9,66 +9,8 @@ import {
   selectFavoritesByCity,
 } from './offers-selectors';
 import { RootState } from '../../types/state';
-import { OfferDetailsDto, OfferDto } from '../../types/offer-dto';
 import { NameSpace } from '../../const';
-
-export const mockOffers: OfferDto[] = [
-  {
-    id: '1',
-    title: 'Charming Studio in Paris',
-    type: 'apartment',
-    price: 100,
-    city: {
-      name: 'Paris',
-      location: { latitude: 48.8566, longitude: 2.3522, zoom: 10 },
-    },
-    location: { latitude: 48.857, longitude: 2.353, zoom: 10 },
-    isFavorite: true,
-    isPremium: false,
-    rating: 4.2,
-    previewImage: '/images/studio.jpg',
-  },
-  {
-    id: '2',
-    title: 'Modern Loft in Cologne',
-    type: 'loft',
-    price: 150,
-    city: {
-      name: 'Cologne',
-      location: { latitude: 50.9375, longitude: 6.9603, zoom: 10 },
-    },
-    location: { latitude: 50.938, longitude: 6.961, zoom: 10 },
-    isFavorite: false,
-    isPremium: true,
-    rating: 4.7,
-    previewImage: '/images/loft.jpg',
-  },
-];
-
-export const mockOfferDetails: OfferDetailsDto = {
-  id: '1',
-  title: 'Charming Studio in Paris',
-  type: 'apartment',
-  price: 100,
-  city: {
-    name: 'Paris',
-    location: { latitude: 48.8566, longitude: 2.3522, zoom: 10 },
-  },
-  location: { latitude: 48.857, longitude: 2.353, zoom: 10 },
-  isFavorite: true,
-  isPremium: false,
-  rating: 4.2,
-  description: 'Cozy and bright studio in the heart of Paris, perfect for couples.',
-  bedrooms: 1,
-  goods: ['Wi-Fi', 'Heating', 'Kitchen'],
-  host: {
-    name: 'Alice',
-    avatarUrl: '/img/host.jpg',
-    isPro: true,
-  },
-  images: ['/images/studio1.jpg', '/images/studio2.jpg'],
-  maxAdults: 2,
-};
+import { mockOffers } from '../../mock/test-data';
 
 const mockState = {
   [NameSpace.Offers]: {

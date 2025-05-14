@@ -6,22 +6,10 @@ import {
   selectVisibleComments,
 } from './reviews-selectors';
 import { RootState } from '../../types/state';
-import { CommentDto } from '../../types/comment-dto';
 import { NameSpace } from '../../const';
+import { mockComments } from '../../mock/test-data';
 
 const MAX_VISIBLE_COMMENTS = 10;
-
-const mockComments: CommentDto[] = Array.from({ length: 15 }, (_, i) => ({
-  id: String(i + 1),
-  date: `2024-01-${i + 1}`,
-  user: {
-    name: `User ${i + 1}`,
-    avatarUrl: `/img/user${i + 1}.jpg`,
-    isPro: false,
-  },
-  comment: `Comment ${i + 1}`,
-  rating: 4,
-}));
 
 const mockState = {
   [NameSpace.Reviews]: {

@@ -6,31 +6,8 @@ import offersSlice, {
   setOfferDataLoadingStatus,
   setOffers,
 } from './offers-slice';
-import { OfferDetailsDto, OfferDto } from '../../types/offer-dto';
 import { fetchOffers, fetchOfferWithNearby, fetchFavoriteOffers } from '../api-actions';
-
-const mockOffer: OfferDto = {
-  id: '1',
-  title: 'Test Offer',
-  type: 'apartment',
-  price: 100,
-  city: { name: 'Paris', location: { latitude: 0, longitude: 0, zoom: 10 } },
-  location: { latitude: 0, longitude: 0, zoom: 10 },
-  isFavorite: false,
-  isPremium: false,
-  rating: 4,
-  previewImage: '/img.jpg',
-};
-
-const mockDetails: OfferDetailsDto = {
-  ...mockOffer,
-  description: 'Details',
-  bedrooms: 2,
-  goods: ['Wi-Fi'],
-  host: { name: 'Host', avatarUrl: '/img.jpg', isPro: true },
-  images: [],
-  maxAdults: 3,
-};
+import { mockDetails, mockOffers } from '../../mock/test-data';
 
 describe('offersSlice', () => {
   it('should set city', () => {
@@ -44,8 +21,8 @@ describe('offersSlice', () => {
   });
 
   it('should set nearby offers', () => {
-    const state = offersSlice.reducer(undefined, setNearbyOffers([mockOffer]));
-    expect(state.nearbyOffers).toEqual([mockOffer]);
+    const state = offersSlice.reducer(undefined, setNearbyOffers(mockOffers));
+    expect(state.nearbyOffers).toEqual(mockOffers);
   });
 
   it('should set offer loading status', () => {
@@ -54,8 +31,8 @@ describe('offersSlice', () => {
   });
 
   it('should set offers list', () => {
-    const state = offersSlice.reducer(undefined, setOffers([mockOffer]));
-    expect(state.offers).toEqual([mockOffer]);
+    const state = offersSlice.reducer(undefined, setOffers(mockOffers));
+    expect(state.offers).toEqual(mockOffers);
   });
 
   it('should handle fetchOfferWithNearby.pending', () => {
@@ -64,13 +41,13 @@ describe('offersSlice', () => {
   });
 
   it('should handle fetchOfferWithNearby.fulfilled', () => {
-    const payload = { offer: mockDetails, nearby: [mockOffer] };
+    const payload = { offer: mockDetails, nearby: mockOffers };
     const state = offersSlice.reducer(undefined, {
       type: fetchOfferWithNearby.fulfilled.type,
       payload,
     });
     expect(state.currentOffer).toEqual(mockDetails);
-    expect(state.nearbyOffers).toEqual([mockOffer]);
+    expect(state.nearbyOffers).toEqual(mockOffers);
     expect(state.isOfferDataLoading).toBe(false);
   });
 
@@ -83,9 +60,9 @@ describe('offersSlice', () => {
   it('should handle fetchFavoriteOffers.fulfilled', () => {
     const state = offersSlice.reducer(undefined, {
       type: fetchFavoriteOffers.fulfilled.type,
-      payload: [mockOffer],
+      payload: mockOffers,
     });
-    expect(state.favorites).toEqual([mockOffer]);
+    expect(state.favorites).toEqual(mockOffers);
     expect(state.isFavoritesDataLoading).toBe(false);
   });
 });

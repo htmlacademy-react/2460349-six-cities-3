@@ -1,21 +1,7 @@
 import { reviewsSlice, setComments } from './reviews-slice';
 import { fetchOfferComments, sendComment } from '../api-actions';
-import { CommentDto } from '../../types/comment-dto';
 import { describe, it, expect } from 'vitest';
-
-const mockComments: CommentDto[] = [
-  {
-    id: '1',
-    comment: 'Test comment',
-    date: '2024-01-01',
-    rating: 5,
-    user: {
-      name: 'User',
-      avatarUrl: '/img.jpg',
-      isPro: false
-    }
-  }
-];
+import { mockComments } from '../../mock/test-data';
 
 describe('reviewsSlice', () => {
   it('should return initial state when passed an unknown action', () => {

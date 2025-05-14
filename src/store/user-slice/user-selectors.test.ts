@@ -6,14 +6,7 @@ import {
 } from './user-selectors';
 import { RootState } from '../../types/state';
 import { AuthorizationStatus, NameSpace } from '../../const';
-
-const mockUser = {
-  name: 'Valer',
-  avatarUrl: '/img/avatar.jpg',
-  isPro: true,
-  email: 'valer@example.com',
-  token: 'secret-token',
-};
+import { mockUser } from '../../mock/test-data';
 
 const mockState = {
   [NameSpace.User]: {
@@ -28,11 +21,11 @@ describe('User selectors', () => {
   });
 
   it('selectUserEmail returns user email', () => {
-    expect(selectUserEmail(mockState)).toBe('valer@example.com');
+    expect(selectUserEmail(mockState)).toBe('test@example.com');
   });
 
   it('selectAuthorizationStatus returns current status', () => {
-    expect(selectAuthorizationStatus(mockState)).toBe('AUTH');
+    expect(selectAuthorizationStatus(mockState)).toBe(AuthorizationStatus.Auth);
   });
 
   it('selectUserEmail returns undefined if no user', () => {

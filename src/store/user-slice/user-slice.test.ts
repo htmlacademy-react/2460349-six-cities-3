@@ -1,15 +1,7 @@
 import userSlice from './user-slice';
 import { checkAuth, login, logout } from '../api-actions';
-import { UserData } from '../../types/user-data';
 import { AuthorizationStatus } from '../../const';
-
-const mockUser: UserData = {
-  name: 'Test User',
-  avatarUrl: '/avatar.jpg',
-  isPro: true,
-  email: 'test@example.com',
-  token: 'fake-token',
-};
+import { mockUser } from '../../mock/test-data';
 
 describe('userSlice', () => {
   it('should return initial state by default', () => {

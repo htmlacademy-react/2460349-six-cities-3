@@ -45,16 +45,12 @@ export const fetchOfferWithNearby = createAsyncThunk<{
 }>(
   'offers/fetchOfferWithNearby',
   async (id, { extra: api }) => {
-    try {
-      const { data: offer } = await api.get<OfferDetailsDto>(`${APIRoute.Offers}/${id}`);
-      const { data: nearby } = await api.get<OfferDto[]>(`${APIRoute.Offers}/${id}/nearby`);
-      return { offer, nearby };
-    } catch {
-      return { offer: null, nearby: [] };
-    }
-
+    const { data: offer } = await api.get<OfferDetailsDto>(`${APIRoute.Offers}/${id}`);
+    const { data: nearby } = await api.get<OfferDto[]>(`${APIRoute.Offers}/${id}/nearby`);
+    return { offer, nearby };
   }
 );
+
 export const fetchOfferComments = createAsyncThunk<{
   comments: CommentDto[];
 }, string, {
@@ -64,13 +60,8 @@ export const fetchOfferComments = createAsyncThunk<{
 }>(
   'reviews/fetchOfferComments',
   async (id, { extra: api }) => {
-    try {
-      const { data: comments } = await api.get<CommentDto[]>(`${APIRoute.Comments}/${id}`);
-      return { comments };
-    } catch {
-      return { comments: [] };
-    }
-
+    const { data: comments } = await api.get<CommentDto[]>(`${APIRoute.Comments}/${id}`);
+    return { comments };
   }
 );
 
