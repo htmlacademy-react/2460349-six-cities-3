@@ -9,7 +9,6 @@ import LoadingScreen from '../../loading-screen/loading-screen';
 
 function OffersWithMap() {
   const isOffersLoading = useAppSelector(selectOffersLoading);
-
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const [sortType, setSortType] = useState<Sorting>(Sorting.Default);
   const currentCity = useAppSelector(selectCurrentCity);

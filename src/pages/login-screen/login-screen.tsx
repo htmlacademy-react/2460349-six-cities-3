@@ -1,7 +1,7 @@
 import { FormEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch } from '../../store';
-import { loginAction } from '../../store/api-actions';
+import { login } from '../../store/api-actions';
 
 function LoginScreen() {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -13,7 +13,7 @@ function LoginScreen() {
     evt.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
-      await dispatch(loginAction({
+      await dispatch(login({
         email: emailRef.current.value,
         password: passwordRef.current.value
       }));

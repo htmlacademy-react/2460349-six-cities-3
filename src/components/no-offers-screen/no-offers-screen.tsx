@@ -1,7 +1,7 @@
 import { useAppSelector } from '../../store';
 import { selectCurrentCityName } from '../../store/offers-slice/offers-selectors';
 
-function ErrorScreen() {
+function NoOffersScreen() {
   const currentCity = useAppSelector(selectCurrentCityName);
 
   return (
@@ -22,4 +22,4 @@ function ErrorScreen() {
   );
 }
 
-export default ErrorScreen;
+export default NoOffersScreen;

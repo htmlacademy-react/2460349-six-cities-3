@@ -5,8 +5,8 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Map from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { useEffect } from 'react';
-import { fetchCommentsOfferData, fetchOfferData } from '../../store/api-actions';
-import { OfferDetailsDto, OfferDto } from '../../types/types';
+import { fetchOfferComments, fetchOfferWithNearby } from '../../store/api-actions';
+import { OfferDetailsDto, OfferDto } from '../../types/offer-dto';
 import OffersImageList from './components/offers-image-list';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NearPlaces from './components/near-places';
@@ -30,8 +30,8 @@ function OfferScreen() {
 
   useEffect(() => {
     if (offerId) {
-      dispatch(fetchOfferData(offerId));
-      dispatch(fetchCommentsOfferData(offerId));
+      dispatch(fetchOfferWithNearby(offerId));
+      dispatch(fetchOfferComments(offerId));
     }
   }, [dispatch, offerId]);
 

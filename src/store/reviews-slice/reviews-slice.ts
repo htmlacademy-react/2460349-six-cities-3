@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ReviewsState } from '../../types/state';
 import { NameSpace } from '../../const';
-import { CommentDto } from '../../types/types';
-import { fetchCommentsOfferData, sendCommentAction } from '../api-actions';
+import { CommentDto } from '../../types/comment-dto';
+import { fetchOfferComments, sendComment } from '../api-actions';
 
 const initialState: ReviewsState = {
   isCommentSending: false,
@@ -20,25 +20,25 @@ export const reviewsSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchCommentsOfferData.pending, (state) => {
+      .addCase(fetchOfferComments.pending, (state) => {
         state.isDataLoading = true;
       })
-      .addCase(fetchCommentsOfferData.fulfilled, (state, action) => {
+      .addCase(fetchOfferComments.fulfilled, (state, action) => {
         state.comments = action.payload.comments;
 
         state.isDataLoading = false;
       })
-      .addCase(fetchCommentsOfferData.rejected, (state) => {
+      .addCase(fetchOfferComments.rejected, (state) => {
         state.isDataLoading = false;
       })
-      .addCase(sendCommentAction.pending, (state) => {
+      .addCase(sendComment.pending, (state) => {
         state.isCommentSending = true;
       })
-      .addCase(sendCommentAction.fulfilled, (state, action) => {
+      .addCase(sendComment.fulfilled, (state, action) => {
         state.comments = action.payload;
         state.isCommentSending = false;
       })
-      .addCase(sendCommentAction.rejected, (state) => {
+      .addCase(sendComment.rejected, (state) => {
         state.isCommentSending = false;
       });
   },

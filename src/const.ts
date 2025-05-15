@@ -10,6 +10,8 @@ export const URL_MARKER_DEFAULT = 'public/img/pin.svg';
 
 export const URL_MARKER_CURRENT = 'public/img/pin-active.svg';
 
+export const MAX_VISIBLE_COMMENTS = 10;
+
 export enum AppRoute {
   Root = '/',
   Login = '/login',
@@ -33,12 +35,8 @@ export enum Sorting {
 
 export enum APIRoute {
   Offers = '/offers',
-
   Favorite = '/favorite',
-  ChangeFavorite = '/favorite/:id/:status',
-
   Comments = '/comments',
-
   Login = '/login',
   Logout = '/logout',
 }

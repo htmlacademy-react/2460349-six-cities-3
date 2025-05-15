@@ -1,22 +1,22 @@
 import { CITIES } from '../../../const';
 import CityTab from './city-tab';
-import { selectErrorStatus, selectCurrentCityName, selectOffersLoading } from '../../../store/offers-slice/offers-selectors';
+import { 	selectOffersErrorStatus, selectCurrentCityName, selectOffersLoading } from '../../../store/offers-slice/offers-selectors';
 
 import { useAppDispatch, useAppSelector } from '../../../store';
-import { fetchOffersAction } from '../../../store/api-actions';
+import { fetchOffers } from '../../../store/api-actions';
 import { setCity } from '../../../store/offers-slice/offers-slice';
 
 function Tabs() {
   const dispatch = useAppDispatch();
   const currentCity = useAppSelector(selectCurrentCityName);
-  const hasError = useAppSelector(selectErrorStatus);
+  const hasError = useAppSelector(selectOffersErrorStatus);
   const isLoading = useAppSelector(selectOffersLoading);
 
   const handleCityClick = (city: string) => {
     dispatch(setCity(city));
 
     if(hasError && !isLoading) {
-      dispatch(fetchOffersAction());
+      dispatch(fetchOffers());
     }
   };
 
