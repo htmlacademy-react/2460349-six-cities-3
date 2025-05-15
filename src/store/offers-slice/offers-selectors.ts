@@ -29,7 +29,7 @@ export const selectOffersErrorStatus = (state: RootState): boolean => state[Name
 
 export const selectFavoriteOffers = (state: RootState) => state[NameSpace.Offers].favorites;
 
-export const selectFavoriteOffersCount = (state: RootState) => state[NameSpace.Offers].offers.filter((offer) => offer.isFavorite).length;
+export const selectFavoriteOffersCount = (state: RootState) => state[NameSpace.Offers].favorites.length;
 
 export const selectFavoritesByCity = createSelector(
   [selectFavoriteOffers],

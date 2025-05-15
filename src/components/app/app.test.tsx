@@ -13,6 +13,7 @@ const renderWithRouter = (initialRoute: string) => {
   const store = mockStore({
     USER: { authorizationStatus: AuthorizationStatus.NoAuth, user: null },
     OFFERS: { offers: [], isOffersDataLoading: false },
+    FAVORITES: [],
   });
 
   return render(
@@ -46,6 +47,7 @@ describe('App routing', () => {
     const store = mockStore({
       USER: { authorizationStatus: AuthorizationStatus.Auth, user: { email: 'test@example.com' } },
       OFFERS: { offers: [], isOffersDataLoading: false },
+      FAVORITES: [],
     });
 
     render(

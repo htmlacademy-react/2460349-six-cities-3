@@ -6,10 +6,8 @@ import {
   selectVisibleComments,
 } from './reviews-selectors';
 import { RootState } from '../../types/state';
-import { NameSpace } from '../../const';
+import { MAX_VISIBLE_COMMENTS, NameSpace } from '../../const';
 import { mockComments } from '../../mock/test-data';
-
-const MAX_VISIBLE_COMMENTS = 10;
 
 const mockState = {
   [NameSpace.Reviews]: {

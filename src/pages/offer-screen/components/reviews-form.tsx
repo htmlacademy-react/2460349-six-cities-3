@@ -47,6 +47,8 @@ function ReviewsForm() {
     }
   };
 
+  const isSubmitDisabled: boolean = review.comment.length < 50 || review.comment.length > 300 || review.rating === 0;
+
   return (
     <form
       className="reviews__form form"
@@ -73,7 +75,7 @@ function ReviewsForm() {
           <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
           </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled={ review.comment.length < 50 || review.comment.length > 300 || review.rating === 0}>
+          <button className="reviews__submit form__submit button" type="submit" disabled={isSubmitDisabled}>
             Submit
           </button>
         </div>

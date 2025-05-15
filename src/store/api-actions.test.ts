@@ -5,9 +5,8 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import { RootState } from '../types/state';
 import { Action, AnyAction } from 'redux';
-import { APIRoute } from '../const';
+import { APIRoute, AuthorizationStatus } from '../const';
 import { mockUser, offerId, mockDetails, mockNearby, mockComments, mockCommentPost, mockFavorites, favoriteRequest, updatedOffer, loginData, mockOffers } from '../mock/test-data';
-
 
 type AppDispatch = ThunkDispatch<RootState, ReturnType<typeof createAPI>, AnyAction>;
 const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
@@ -177,8 +176,10 @@ describe('Async thunk: fetchFavoriteOffers', () => {
 });
 
 describe('Async thunk: toggleFavoriteStatus', () => {
-  it('should dispatch pending and fulfilled on success', async () => {
-    const store = mockStore();
+  it('should dispatch pending and fulfilled on success when user is authorized', async () => {
+    const store = mockStore({
+      USER: { authorizationStatus: AuthorizationStatus.Auth },
+    });
 
     mockAxios.onPost(`${APIRoute.Favorite}/${favoriteRequest.id}/${favoriteRequest.status}`)
       .reply(200, updatedOffer);
@@ -186,12 +187,15 @@ describe('Async thunk: toggleFavoriteStatus', () => {
     await store.dispatch(toggleFavoriteStatus(favoriteRequest));
 
     const actions = extractActionsTypes(store.getActions());
+
     expect(actions).toContain(toggleFavoriteStatus.pending.type);
     expect(actions).toContain(toggleFavoriteStatus.fulfilled.type);
   });
 
-  it('should dispatch rejected on error', async () => {
-    const store = mockStore();
+  it('should dispatch pending and rejected on server error', async () => {
+    const store = mockStore({
+      USER: { authorizationStatus: AuthorizationStatus.Auth },
+    });
 
     mockAxios.onPost(`${APIRoute.Favorite}/${favoriteRequest.id}/${favoriteRequest.status}`)
       .reply(500);
@@ -199,10 +203,12 @@ describe('Async thunk: toggleFavoriteStatus', () => {
     await store.dispatch(toggleFavoriteStatus(favoriteRequest));
 
     const actions = extractActionsTypes(store.getActions());
+
     expect(actions).toContain(toggleFavoriteStatus.pending.type);
     expect(actions).toContain(toggleFavoriteStatus.rejected.type);
   });
 });
+
 
 describe('Async thunk: login', () => {
   it('should dispatch pending and fulfilled on success', async () => {

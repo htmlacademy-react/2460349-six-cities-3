@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, RootState } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { OfferDetailsDto, OfferDto } from '../types/offer-dto';
-import { APIRoute, AppRoute } from '../const';
+import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { redirectToRoute } from './action';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
@@ -90,14 +90,22 @@ export const fetchFavoriteOffers = createAsyncThunk<OfferDto[], undefined, {
   }
 );
 
-export const toggleFavoriteStatus = createAsyncThunk<OfferDto, FavoritesData, {
+export const toggleFavoriteStatus = createAsyncThunk<OfferDto | void, FavoritesData, {
   dispatch: AppDispatch;
   state: RootState;
   extra: AxiosInstance;
 }>(
   'offers/toggleFavoriteStatus',
-  async ({ id, status }, { extra: api }) => {
+  async ({ id, status }, { dispatch, getState, extra: api }) => {
+    const state = getState();
+    const isAuth = state.USER.authorizationStatus === AuthorizationStatus.Auth;
+
+    if(!isAuth){
+      dispatch(redirectToRoute(AppRoute.Login));
+      return;
+    }
     const { data } = await api.post<OfferDto>(`${APIRoute.Favorite}/${id}/${status}`);
+    dispatch(fetchFavoriteOffers());
     return data;
   }
 );

@@ -10,8 +10,8 @@ import clsx from 'clsx';
 
 function FavoritesScreen() {
   const dispatch = useAppDispatch();
-  const favoritesLength = useAppSelector(selectFavoriteOffersCount);
-  const isEmpty = favoritesLength === 0;
+  const favoritesCount = useAppSelector(selectFavoriteOffersCount);
+  const isEmpty = favoritesCount === 0;
 
   useEffect(() => {
     dispatch(fetchFavoriteOffers());
