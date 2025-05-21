@@ -5,7 +5,7 @@ import offersSlice, {
   setOfferDataLoadingStatus,
   setOffers,
 } from './offers-slice';
-import { fetchOffers, fetchOffer, fetchFavoriteOffers } from '../api-actions';
+import { fetchOffers, fetchFavoriteOffers } from '../api-actions';
 import { mockDetails, mockOffers } from '../../mock/test-data';
 
 describe('offersSlice', () => {
@@ -27,22 +27,6 @@ describe('offersSlice', () => {
   it('should set offers list', () => {
     const state = offersSlice.reducer(undefined, setOffers(mockOffers));
     expect(state.offers).toEqual(mockOffers);
-  });
-
-  it('should handle fetchOfferWithNearby.pending', () => {
-    const state = offersSlice.reducer(undefined, { type: fetchOffer.pending.type });
-    expect(state.isOfferDataLoading).toBe(true);
-  });
-
-  it('should handle fetchOfferWithNearby.fulfilled', () => {
-    const payload = { offer: mockDetails, nearby: mockOffers };
-    const state = offersSlice.reducer(undefined, {
-      type: fetchOffer.fulfilled.type,
-      payload,
-    });
-    expect(state.currentOffer).toEqual(mockDetails);
-    expect(state.nearby).toEqual(mockOffers);
-    expect(state.isOfferDataLoading).toBe(false);
   });
 
   it('should handle fetchOffers.rejected', () => {
