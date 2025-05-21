@@ -21,9 +21,11 @@ export const selectOfferLoading = (state: RootState) => state[NameSpace.Offers].
 
 export const selectFavoritesLoading = (state: RootState) => state[NameSpace.Offers].isFavoritesDataLoading;
 
+export const selectNearbyDataLoading = (state: RootState) => state[NameSpace.Offers].isNearbyDataLoading;
+
 export const selectCurrentOffer = (state: RootState) => state[NameSpace.Offers].currentOffer;
 
-export const selectNearbyOffers = (state: RootState) => state[NameSpace.Offers].nearbyOffers;
+export const selectNearbyOffers = (state: RootState) => state[NameSpace.Offers].nearby;
 
 export const selectOffersErrorStatus = (state: RootState): boolean => state[NameSpace.Offers].hasError;
 

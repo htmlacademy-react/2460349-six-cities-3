@@ -2,11 +2,10 @@ import { describe, it, expect } from 'vitest';
 import offersSlice, {
   setCity,
   setCurrentOffer,
-  setNearbyOffers,
   setOfferDataLoadingStatus,
   setOffers,
 } from './offers-slice';
-import { fetchOffers, fetchOfferWithNearby, fetchFavoriteOffers } from '../api-actions';
+import { fetchOffers, fetchOffer, fetchFavoriteOffers } from '../api-actions';
 import { mockDetails, mockOffers } from '../../mock/test-data';
 
 describe('offersSlice', () => {
@@ -20,11 +19,6 @@ describe('offersSlice', () => {
     expect(state.currentOffer).toEqual(mockDetails);
   });
 
-  it('should set nearby offers', () => {
-    const state = offersSlice.reducer(undefined, setNearbyOffers(mockOffers));
-    expect(state.nearbyOffers).toEqual(mockOffers);
-  });
-
   it('should set offer loading status', () => {
     const state = offersSlice.reducer(undefined, setOfferDataLoadingStatus(true));
     expect(state.isOfferDataLoading).toBe(true);
@@ -36,18 +30,18 @@ describe('offersSlice', () => {
   });
 
   it('should handle fetchOfferWithNearby.pending', () => {
-    const state = offersSlice.reducer(undefined, { type: fetchOfferWithNearby.pending.type });
+    const state = offersSlice.reducer(undefined, { type: fetchOffer.pending.type });
     expect(state.isOfferDataLoading).toBe(true);
   });
 
   it('should handle fetchOfferWithNearby.fulfilled', () => {
     const payload = { offer: mockDetails, nearby: mockOffers };
     const state = offersSlice.reducer(undefined, {
-      type: fetchOfferWithNearby.fulfilled.type,
+      type: fetchOffer.fulfilled.type,
       payload,
     });
     expect(state.currentOffer).toEqual(mockDetails);
-    expect(state.nearbyOffers).toEqual(mockOffers);
+    expect(state.nearby).toEqual(mockOffers);
     expect(state.isOfferDataLoading).toBe(false);
   });
 

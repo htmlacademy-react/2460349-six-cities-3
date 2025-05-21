@@ -7,9 +7,10 @@ interface Props {
   offers: OfferDto[];
   setActiveOfferId?: (id: string | null) => void;
   sortType?: Sorting;
+  pageMain: boolean;
 }
 
-function OffersListImpl({ offers, setActiveOfferId, sortType = Sorting.Default }: Props) {
+function OffersListImpl({ offers, setActiveOfferId, sortType = Sorting.Default, pageMain }: Props) {
 
   const sortOffers = (list: OfferDto[], sort: Sorting): OfferDto[] => {
     if (sort === Sorting.Default) {
@@ -39,6 +40,7 @@ function OffersListImpl({ offers, setActiveOfferId, sortType = Sorting.Default }
           offer={offer}
           onMouseEnter={() => setActiveOfferId?.(offer.id ?? null)}
           onMouseLeave={() => setActiveOfferId?.(null)}
+          pageMain = {pageMain}
         />
       ))}
     </>

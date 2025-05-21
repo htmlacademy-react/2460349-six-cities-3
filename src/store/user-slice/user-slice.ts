@@ -15,6 +15,9 @@ export const userSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
+      .addCase(checkAuth.pending, (state) => {
+        state.authorizationStatus = AuthorizationStatus.Unknown;
+      })
       .addCase(checkAuth.fulfilled, (state, action: PayloadAction<UserData>) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.user = action.payload;

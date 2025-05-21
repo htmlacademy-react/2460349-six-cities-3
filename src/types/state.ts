@@ -12,7 +12,6 @@ export interface ReviewsState {
 
 export interface OffersState {
   currentOffer: OfferDetailsDto | null;
-  nearbyOffers: OfferDto[];
   isOfferDataLoading: boolean;
   city: string;
   offers: OfferDto[];
@@ -20,6 +19,8 @@ export interface OffersState {
   hasError: boolean;
   favorites: OfferDto[];
   isFavoritesDataLoading: boolean;
+  nearby: OfferDto[];
+  isNearbyDataLoading: boolean;
 }
 
 export interface UserState {

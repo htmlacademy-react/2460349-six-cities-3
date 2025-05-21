@@ -23,7 +23,7 @@ function OffersWithMap() {
           <PlacesSorting sortType={sortType} setSortType={setSortType} />
           {isOffersLoading && <LoadingScreen />}
           <div className="cities__places-list places__list tabs__content">
-            <OffersList offers={offersByCity} setActiveOfferId={setActiveOfferId} sortType={sortType} />
+            <OffersList offers={offersByCity} setActiveOfferId={setActiveOfferId} sortType={sortType} pageMain/>
           </div>
         </section>
         <div className="cities__right-section">

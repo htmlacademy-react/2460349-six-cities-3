@@ -35,19 +35,31 @@ export const checkAuth = createAsyncThunk<UserData, undefined, {
   }
 );
 
-export const fetchOfferWithNearby = createAsyncThunk<{
+export const fetchOffer = createAsyncThunk<{
   offer: OfferDetailsDto | null;
+}, string, {
+  dispatch: AppDispatch;
+  state: RootState;
+  extra: AxiosInstance;
+}>(
+  'offers/fetchOffer',
+  async (id, { extra: api }) => {
+    const { data: offer } = await api.get<OfferDetailsDto>(`${APIRoute.Offers}/${id}`);
+    return { offer };
+  }
+);
+
+export const fetchNearby = createAsyncThunk<{
   nearby: OfferDto[];
 }, string, {
   dispatch: AppDispatch;
   state: RootState;
   extra: AxiosInstance;
 }>(
-  'offers/fetchOfferWithNearby',
+  'offers/fetchNearby',
   async (id, { extra: api }) => {
-    const { data: offer } = await api.get<OfferDetailsDto>(`${APIRoute.Offers}/${id}`);
     const { data: nearby } = await api.get<OfferDto[]>(`${APIRoute.Offers}/${id}/nearby`);
-    return { offer, nearby };
+    return { nearby };
   }
 );
 

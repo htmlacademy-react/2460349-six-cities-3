@@ -9,10 +9,12 @@ interface Props {
   offer: OfferDto;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
+  pageMain: boolean;
 }
 
-function OfferCardImpl({ offer, onMouseEnter, onMouseLeave }: Props) {
-  const handleFavoritesClick = useFavoritesToggle('main');
+function OfferCardImpl({ offer, onMouseEnter, onMouseLeave, pageMain }: Props) {
+
+  const handleFavoritesClick = useFavoritesToggle(pageMain ? 'main' : 'nearby');
 
   const { id, title, type, price, isFavorite, isPremium, rating, previewImage } = offer;
   return (
@@ -56,7 +58,7 @@ function OfferCardImpl({ offer, onMouseEnter, onMouseLeave }: Props) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${rating * RATING_MULTIPLIER}% ` }}></span>
+            <span style={{ width: `${Math.round(rating) * RATING_MULTIPLIER}% ` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

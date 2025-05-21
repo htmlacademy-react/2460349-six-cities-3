@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { OffersState } from '../../types/state';
-import { fetchFavoriteOffers, fetchOfferWithNearby, fetchOffers } from '../api-actions';
+import { fetchFavoriteOffers, fetchNearby, fetchOffer, fetchOffers } from '../api-actions';
 import { OfferDetailsDto, OfferDto } from '../../types/offer-dto';
 
 const initialState: OffersState = {
   currentOffer: null,
-  nearbyOffers: [],
+  nearby: [],
   isOfferDataLoading: false,
   city: 'Paris',
   offers: [],
@@ -14,6 +14,7 @@ const initialState: OffersState = {
   hasError: false,
   favorites: [],
   isFavoritesDataLoading: false,
+  isNearbyDataLoading: false,
 };
 
 export const offersSlice = createSlice({
@@ -22,9 +23,6 @@ export const offersSlice = createSlice({
   reducers: {
     setCurrentOffer: (state, action: PayloadAction<OfferDetailsDto | null>) => {
       state.currentOffer = action.payload;
-    },
-    setNearbyOffers: (state, action: PayloadAction<OfferDto[]>) => {
-      state.nearbyOffers = action.payload;
     },
     setOfferDataLoadingStatus: (state, action: PayloadAction<boolean>) => {
       state.isOfferDataLoading = action.payload;
@@ -38,17 +36,27 @@ export const offersSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchOfferWithNearby.pending, (state) => {
+      .addCase(fetchOffer.pending, (state) => {
         state.isOfferDataLoading = true;
       })
-      .addCase(fetchOfferWithNearby.fulfilled, (state, action) => {
+      .addCase(fetchOffer.fulfilled, (state, action) => {
         state.currentOffer = action.payload.offer;
-        state.nearbyOffers = action.payload.nearby;
 
         state.isOfferDataLoading = false;
       })
-      .addCase(fetchOfferWithNearby.rejected, (state) => {
+      .addCase(fetchOffer.rejected, (state) => {
         state.isOfferDataLoading = false;
+      })
+      .addCase(fetchNearby.pending, (state) => {
+        state.isNearbyDataLoading = true;
+      })
+      .addCase(fetchNearby.fulfilled, (state, action) => {
+        state.nearby = action.payload.nearby;
+
+        state.isNearbyDataLoading = false;
+      })
+      .addCase(fetchNearby.rejected, (state) => {
+        state.isNearbyDataLoading = false;
       })
       .addCase(fetchOffers.pending, (state) => {
         state.isOffersDataLoading = true;
@@ -75,6 +83,6 @@ export const offersSlice = createSlice({
   },
 });
 
-export const { setCurrentOffer, setNearbyOffers, setOfferDataLoadingStatus, setCity, setOffers } = offersSlice.actions;
+export const { setCurrentOffer, setOfferDataLoadingStatus, setCity, setOffers } = offersSlice.actions;
 
 export default offersSlice;

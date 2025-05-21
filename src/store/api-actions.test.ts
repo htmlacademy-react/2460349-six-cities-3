@@ -1,4 +1,4 @@
-import { checkAuth, fetchFavoriteOffers, fetchOfferComments, fetchOffers, fetchOfferWithNearby, login, logout, sendComment, toggleFavoriteStatus } from './api-actions';
+import { checkAuth, fetchFavoriteOffers, fetchOfferComments, fetchOffers, fetchOffer, login, logout, sendComment, toggleFavoriteStatus } from './api-actions';
 import MockAdapter from 'axios-mock-adapter';
 import { createAPI } from '../services/api';
 import { configureMockStore } from '@jedmao/redux-mock-store';
@@ -75,11 +75,11 @@ describe('Async thunk: fetchOfferWithNearby', () => {
     mockAxios.onGet(`${APIRoute.Offers}/${offerId}`).reply(200, mockDetails);
     mockAxios.onGet(`${APIRoute.Offers}/${offerId}/nearby`).reply(200, mockNearby);
 
-    await store.dispatch(fetchOfferWithNearby(offerId));
+    await store.dispatch(fetchOffer(offerId));
 
     const actions = extractActionsTypes(store.getActions());
-    expect(actions).toContain(fetchOfferWithNearby.pending.type);
-    expect(actions).toContain(fetchOfferWithNearby.fulfilled.type);
+    expect(actions).toContain(fetchOffer.pending.type);
+    expect(actions).toContain(fetchOffer.fulfilled.type);
   });
 
   it('should dispatch rejected on error', async () => {
@@ -88,11 +88,11 @@ describe('Async thunk: fetchOfferWithNearby', () => {
     mockAxios.onGet(`${APIRoute.Offers}/${offerId}`).reply(500);
     mockAxios.onGet(`${APIRoute.Offers}/${offerId}/nearby`).reply(500);
 
-    await store.dispatch(fetchOfferWithNearby(offerId));
+    await store.dispatch(fetchOffer(offerId));
 
     const actions = extractActionsTypes(store.getActions());
-    expect(actions).toContain(fetchOfferWithNearby.pending.type);
-    expect(actions).toContain(fetchOfferWithNearby.rejected.type);
+    expect(actions).toContain(fetchOffer.pending.type);
+    expect(actions).toContain(fetchOffer.rejected.type);
   });
 });
 
