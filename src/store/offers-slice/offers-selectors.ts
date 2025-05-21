@@ -1,6 +1,7 @@
 import { RootState } from '../../store';
 import { createSelector } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
+import { OfferDto } from '../../types/offer-dto';
 
 export const selectCurrentCityName = (state: RootState) => state[NameSpace.Offers].city;
 
@@ -20,12 +21,26 @@ export const selectOfferLoading = (state: RootState) => state[NameSpace.Offers].
 
 export const selectFavoritesLoading = (state: RootState) => state[NameSpace.Offers].isFavoritesDataLoading;
 
+export const selectNearbyDataLoading = (state: RootState) => state[NameSpace.Offers].isNearbyDataLoading;
+
 export const selectCurrentOffer = (state: RootState) => state[NameSpace.Offers].currentOffer;
 
-export const selectNearbyOffers = (state: RootState) => state[NameSpace.Offers].nearbyOffers;
+export const selectNearbyOffers = (state: RootState) => state[NameSpace.Offers].nearby;
 
-export const selectErrorStatus = (state: RootState): boolean => state[NameSpace.Offers].hasError;
+export const selectOffersErrorStatus = (state: RootState): boolean => state[NameSpace.Offers].hasError;
 
-export const selectFavoritesOffers = (state: RootState) => state[NameSpace.Offers].favorites;
+export const selectFavoriteOffers = (state: RootState) => state[NameSpace.Offers].favorites;
 
-export const selectFavoritesOffersLength = (state: RootState) => state[NameSpace.Offers].offers.filter((offer) => offer.isFavorite).length;
+export const selectFavoriteOffersCount = (state: RootState) => state[NameSpace.Offers].favorites.length;
+
+export const selectFavoritesByCity = createSelector(
+  [selectFavoriteOffers],
+  (favorites) => favorites.reduce<Record<string, OfferDto[]>>((acc, offer) => {
+    const city = offer.city.name;
+    if (!acc[city]) {
+      acc[city] = [];
+    }
+    acc[city].push(offer);
+    return acc;
+  }, {})
+);

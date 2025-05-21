@@ -1,22 +1,14 @@
 import { Link } from 'react-router-dom';
-import { OfferDto } from '../../../types/types';
+import { OfferDto } from '../../../types/offer-dto';
 import { RATING_MULTIPLIER } from '../../../const';
-import { toggleFavoriteStatusAction, fetchFavoritesData, fetchOffersAction } from '../../../store/api-actions';
-import { FavoritesData } from '../../../types/favorites-data';
-import { useAppDispatch } from '../../../store';
+import { useFavoritesToggle } from '../../../hooks/use-favorites-toggle';
 
 interface Props {
   offer: OfferDto;
 }
 
 function FavoritesOffer({ offer }: Props) {
-  const dispatch = useAppDispatch();
-
-  const handleFavoritesClick = async (data: FavoritesData) => {
-    await dispatch(toggleFavoriteStatusAction(data));
-    dispatch(fetchFavoritesData());
-    dispatch(fetchOffersAction());
-  };
+  const handleFavoritesClick = useFavoritesToggle('favorites');
 
   const { id, title, type, price, isPremium, rating, previewImage } = offer;
   return (
@@ -27,7 +19,7 @@ function FavoritesOffer({ offer }: Props) {
         </div>
       )}
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <Link to="/offer/1">
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image" />
         </Link>
       </div>

@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { logoutAction } from '../../store/api-actions';
+import { logout } from '../../store/api-actions';
 import { memo } from 'react';
 import { selectAuthorizationStatus, selectUserData } from '../../store/user-slice/user-selectors';
-import { selectFavoritesOffersLength } from '../../store/offers-slice/offers-selectors';
+import { selectFavoriteOffersCount } from '../../store/offers-slice/offers-selectors';
 
 interface Props {
   isLoginPage?: boolean;
@@ -15,7 +15,7 @@ function HeaderImpl({ isLoginPage = false, }: Props) {
   const user = useAppSelector(selectUserData);
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
-  const favorites = useAppSelector(selectFavoritesOffersLength);
+  const favorites = useAppSelector(selectFavoriteOffersCount);
 
   const email = user?.email ?? '';
 
@@ -51,13 +51,12 @@ function HeaderImpl({ isLoginPage = false, }: Props) {
                       to="/"
                       onClick={(evt) => {
                         evt.preventDefault();
-                        dispatch(logoutAction());
+                        dispatch(logout());
                       }}
                     >
                       <span className="header__signout">Sign out</span>
                     </Link>
                   </li>}
-
               </ul>
             </nav>
           )}

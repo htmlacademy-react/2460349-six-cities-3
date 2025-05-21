@@ -1,5 +1,5 @@
 import OfferCard from '../offer-card/offer-card';
-import { OfferDto } from '../../types/types';
+import { OfferDto } from '../../types/offer-dto';
 import { Sorting } from '../../const';
 import { memo } from 'react';
 
@@ -7,11 +7,12 @@ interface Props {
   offers: OfferDto[];
   setActiveOfferId?: (id: string | null) => void;
   sortType?: Sorting;
+  pageMain: boolean;
 }
 
-function OffersListImpl({ offers, setActiveOfferId, sortType = Sorting.Default }: Props) {
+function OffersListImpl({ offers, setActiveOfferId, sortType = Sorting.Default, pageMain }: Props) {
 
-  const sortingOffers = (list: OfferDto[], sort: Sorting): OfferDto[] => {
+  const sortOffers = (list: OfferDto[], sort: Sorting): OfferDto[] => {
     if (sort === Sorting.Default) {
       return list;
     }
@@ -29,7 +30,7 @@ function OffersListImpl({ offers, setActiveOfferId, sortType = Sorting.Default }
     }
   };
 
-  const sortedOffers = sortingOffers(offers, sortType);
+  const sortedOffers = sortOffers(offers, sortType);
 
   return (
     <>
@@ -39,6 +40,7 @@ function OffersListImpl({ offers, setActiveOfferId, sortType = Sorting.Default }
           offer={offer}
           onMouseEnter={() => setActiveOfferId?.(offer.id ?? null)}
           onMouseLeave={() => setActiveOfferId?.(null)}
+          pageMain = {pageMain}
         />
       ))}
     </>

@@ -9,7 +9,6 @@ import LoadingScreen from '../../loading-screen/loading-screen';
 
 function OffersWithMap() {
   const isOffersLoading = useAppSelector(selectOffersLoading);
-
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const [sortType, setSortType] = useState<Sorting>(Sorting.Default);
   const currentCity = useAppSelector(selectCurrentCity);
@@ -24,7 +23,7 @@ function OffersWithMap() {
           <PlacesSorting sortType={sortType} setSortType={setSortType} />
           {isOffersLoading && <LoadingScreen />}
           <div className="cities__places-list places__list tabs__content">
-            <OffersList offers={offersByCity} setActiveOfferId={setActiveOfferId} sortType={sortType} />
+            <OffersList offers={offersByCity} setActiveOfferId={setActiveOfferId} sortType={sortType} pageMain/>
           </div>
         </section>
         <div className="cities__right-section">

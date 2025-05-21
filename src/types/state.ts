@@ -1,6 +1,7 @@
 import { AuthorizationStatus } from '../const';
 import { store } from '../store';
-import { CommentDto, OfferDetailsDto, OfferDto } from './types';
+import { CommentDto } from './comment-dto';
+import { OfferDetailsDto, OfferDto } from './offer-dto';
 import { UserData } from './user-data';
 
 export interface ReviewsState {
@@ -11,7 +12,6 @@ export interface ReviewsState {
 
 export interface OffersState {
   currentOffer: OfferDetailsDto | null;
-  nearbyOffers: OfferDto[];
   isOfferDataLoading: boolean;
   city: string;
   offers: OfferDto[];
@@ -19,6 +19,8 @@ export interface OffersState {
   hasError: boolean;
   favorites: OfferDto[];
   isFavoritesDataLoading: boolean;
+  nearby: OfferDto[];
+  isNearbyDataLoading: boolean;
 }
 
 export interface UserState {

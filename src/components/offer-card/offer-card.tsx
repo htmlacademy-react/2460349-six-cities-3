@@ -1,33 +1,20 @@
 import clsx from 'clsx';
-import { OfferDto } from '../../types/types';
+import { OfferDto } from '../../types/offer-dto';
 import { Link } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, RATING_MULTIPLIER } from '../../const';
+import { RATING_MULTIPLIER } from '../../const';
 import { memo } from 'react';
-import { useAppDispatch, useAppSelector } from '../../store';
-import { fetchOffersAction, toggleFavoriteStatusAction } from '../../store/api-actions';
-import { FavoritesData } from '../../types/favorites-data';
-import { redirectToRoute } from '../../store/action';
-import { selectAuthorizationStatus } from '../../store/user-slice/user-selectors';
+import { useFavoritesToggle } from '../../hooks/use-favorites-toggle';
 
 interface Props {
   offer: OfferDto;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
+  pageMain: boolean;
 }
 
-function OfferCardImpl({ offer, onMouseEnter, onMouseLeave }: Props) {
-  const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
-  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+function OfferCardImpl({ offer, onMouseEnter, onMouseLeave, pageMain }: Props) {
 
-  const handleFavoritesClick = async (data: FavoritesData) => {
-    if (!isAuth) {
-      dispatch(redirectToRoute(AppRoute.Login));
-      return;
-    }
-    await dispatch(toggleFavoriteStatusAction(data));
-    dispatch(fetchOffersAction());
-  };
+  const handleFavoritesClick = useFavoritesToggle(pageMain ? 'main' : 'nearby');
 
   const { id, title, type, price, isFavorite, isPremium, rating, previewImage } = offer;
   return (
@@ -71,7 +58,7 @@ function OfferCardImpl({ offer, onMouseEnter, onMouseLeave }: Props) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${rating * RATING_MULTIPLIER}% ` }}></span>
+            <span style={{ width: `${Math.round(rating) * RATING_MULTIPLIER}% ` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

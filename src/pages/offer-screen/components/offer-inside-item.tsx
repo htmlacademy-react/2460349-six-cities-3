@@ -2,7 +2,7 @@ interface Props {
   good: string;
 }
 
-function OfferInsideItem({good}: Props) {
+function OfferInsideItem({ good }: Props) {
   return (
     <li className="offer__inside-item">
       {good}
@@ -11,5 +11,3 @@ function OfferInsideItem({good}: Props) {
 }
 
 export default OfferInsideItem;
-
-

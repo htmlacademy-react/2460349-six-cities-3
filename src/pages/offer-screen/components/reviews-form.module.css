@@ -6,3 +6,8 @@
   fill: #ff9000;
 }
 
+.formFieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}

@@ -8,45 +8,46 @@ import LoginScreen from '../../pages/login-screen/login-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import { useInitAuth } from '../../hooks/useInitAuth';
-import HistoryRouter from '../history-route';
-import browserHistory from '../../browser-history';
+import { useInitAuth } from '../../hooks/use-init-auth';
+import PublicRoute from '../public-route/public-route';
 
 function App() {
   useInitAuth();
 
   return (
     <HelmetProvider>
-      <HistoryRouter history = {browserHistory}>
-        <Routes>
-          <Route path={AppRoute.Root} element={<Layout />}>
-            <Route
-              index
-              element={<MainScreen />}
-            />
-            <Route
-              path={AppRoute.Favorites}
-              element={
-                <PrivateRoute>
-                  <FavoritesScreen />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path={AppRoute.Offer}
-              element={<OfferScreen />}
-            />
-            <Route
-              path={AppRoute.Login}
-              element={<LoginScreen />}
-            />
-          </Route>
+      <Routes>
+        <Route path={AppRoute.Root} element={<Layout />}>
           <Route
-            path={AppRoute.NotFound}
-            element={<NotFoundScreen />}
+            index
+            element={<MainScreen />}
           />
-        </Routes>
-      </HistoryRouter>
+          <Route
+            path={AppRoute.Favorites}
+            element={
+              <PrivateRoute>
+                <FavoritesScreen />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={AppRoute.Offer}
+            element={<OfferScreen />}
+          />
+          <Route
+            path={AppRoute.Login}
+            element={
+              <PublicRoute>
+                <LoginScreen />
+              </PublicRoute>
+            }
+          />
+        </Route>
+        <Route
+          path={AppRoute.NotFound}
+          element={<NotFoundScreen />}
+        />
+      </Routes>
     </HelmetProvider>
   );
 }

@@ -1,4 +1,4 @@
-import { CommentDto } from '../../../types/types';
+import { CommentDto } from '../../../types/comment-dto';
 import ReviewsItem from './reviews-item';
 
 interface Props {
